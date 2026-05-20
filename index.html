@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jet Business Phone — Cloud phone system for Australian business</title>
+  <meta name="description" content="Jet Business Phone gives your team local, 1300 and 1800 numbers with a full cloud PBX — IVR, geographic routing, call queuing and an easy drag-and-drop callflow builder. From $25/month per user.">
+  <link rel="icon" href="project/assets/jet-symbol-gradient.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"></noscript>
+  <style>
+    /* ── Design tokens ─────────────────────────────────────── */
+    :root {
+      --red:           #ED1C24;
+      --red-dark:      #A71C20;
+      --red-darker:    #7A1418;
+      --red-100:       #FDE7E8;
+      --red-50:        #FEF3F4;
+
+      --black:         #000;
+      --white:         #fff;
+
+      --ink-950:       #050506;
+      --ink-900:       #0B0B0C;
+      --ink-800:       #1A1A1E;
+      --ink-700:       #2A2A2E;
+      --ink-600:       #4A4D55;
+      --ink-500:       #6B6E76;
+      --ink-400:       #9A9DA4;
+      --ink-300:       #C9CCD1;
+      --ink-200:       #E1E4E8;
+      --ink-100:       #EEF0F3;
+      --ink-50:        #F7F8FA;
+
+      --fg-1:          var(--ink-900);
+      --fg-2:          var(--ink-600);
+      --fg-3:          var(--ink-500);
+
+      --border:        1px solid var(--ink-300);
+
+      --grad-logo:     linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
+      --grad-hero:     linear-gradient(135deg, #7A1418 0%, var(--red-dark) 40%, var(--red) 100%);
+
+      --font-display:  'Saira', 'Arial Narrow', system-ui, sans-serif;
+      --font-ui:       'Barlow', system-ui, -apple-system, sans-serif;
+
+      --fs-caption:    12px;
+      --fs-small:      14px;
+      --fs-body:       16px;
+      --fs-lead:       18px;
+      --fs-h5:         20px;
+      --fs-h4:         24px;
+      --fs-h3:         32px;
+      --fs-h2:         44px;
+      --fs-h1:         64px;
+      --fs-display:    96px;
+
+      --lh-tight:      1.05;
+      --lh-snug:       1.2;
+      --lh-normal:     1.5;
+
+      --tr-tight:      -0.02em;
+      --tr-snug:       -0.01em;
+      --tr-ultra:      0.14em;
+      --tr-wide:       0.06em;
+
+      --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+      --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+      --sp-9: 96px; --sp-10: 128px;
+
+      --radius-0:   0;
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg:  16px;
+      --radius-pill: 999px;
+
+      --shadow-1: 0 1px 2px rgba(11,11,12,.06), 0 1px 3px rgba(11,11,12,.08);
+      --shadow-2: 0 4px 12px rgba(11,11,12,.08), 0 2px 4px rgba(11,11,12,.06);
+      --shadow-3: 0 20px 40px rgba(11,11,12,.14), 0 8px 16px rgba(11,11,12,.08);
+      --shadow-red: 0 8px 24px rgba(237,28,36,.28);
+
+      --ease-out:    cubic-bezier(.2,.8,.2,1);
+      --ease-io:     cubic-bezier(.4,0,.2,1);
+      --dur-fast:    80ms;
+      --dur-base:    140ms;
+      --dur-med:     220ms;
+
+      --max-w: 1200px;
+      --nav-h: 72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: var(--fs-body); -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { font-family: var(--font-ui); color: var(--fg-1); line-height: var(--lh-normal); background: var(--white); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    ::selection { background: var(--red); color: var(--white); }
+
+    /* ── Nav ────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--white); border-bottom: var(--border);
+      height: var(--nav-h);
+    }
+    .nav__inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 var(--sp-6);
+      height: 100%;
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-7);
+    }
+    .nav__logo img { height: 32px; width: auto; }
+    .nav__links { display: flex; align-items: center; gap: var(--sp-5); list-style: none; }
+    .nav__links a { text-decoration: none; color: var(--fg-1); font-weight: 500; font-size: var(--fs-body); transition: color var(--dur-base) var(--ease-out); }
+    .nav__links a:hover { color: var(--red); }
+    .nav__cta { background: var(--red); color: var(--white) !important; padding: 0.5rem 1.5rem; border-radius: var(--radius-md); font-weight: 600 !important; white-space: nowrap; transition: background var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out) !important; }
+    .nav__cta:hover { background: var(--red-dark) !important; box-shadow: var(--shadow-red); color: var(--white) !important; }
+    .nav__phone { display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--fg-1);font-weight:600;font-size:var(--fs-body);white-space:nowrap;transition:color var(--dur-base) var(--ease-out) }
+    .nav__phone:hover { color: var(--red); }
+
+    .nav__dropdown { position: relative; }
+    .nav__dropdown-toggle { display: flex; align-items: center; gap: 4px; cursor: pointer; background: none; border: none; color: var(--fg-1); font-weight: 500; font-size: var(--fs-body); font-family: var(--font-ui); padding: 0; transition: color var(--dur-base) var(--ease-out); }
+    .nav__dropdown-toggle:hover { color: var(--red); }
+    .nav__dropdown-toggle svg { transition: transform var(--dur-base) var(--ease-out); }
+    .nav__dropdown:hover .nav__dropdown-toggle svg { transform: rotate(180deg); }
+    .nav__dropdown-menu { display: none; position: absolute; top: 100%; margin-top: 1px; left: 50%; transform: translateX(-50%); background: var(--white); border: var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-3); min-width: 220px; overflow: hidden; z-index: 300; }
+    .nav__dropdown:hover .nav__dropdown-menu { display: block; }
+    .nav__dropdown-menu a { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); text-decoration: none; color: var(--fg-1); font-size: var(--fs-body); font-weight: 500; border-bottom: var(--border); transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out); }
+    .nav__dropdown-menu a:last-child { border-bottom: none; }
+    .nav__dropdown-menu a:hover { background: var(--ink-50); color: var(--red); }
+    .nav__dropdown-menu a svg { flex-shrink: 0; color: var(--red); }
+
+    .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: var(--sp-2); }
+    .nav__burger span { display: block; width: 22px; height: 2px; background: var(--fg-1); border-radius: 2px; transition: transform var(--dur-med) var(--ease-io), opacity var(--dur-med) var(--ease-io); }
+    .nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav__drawer { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; background: var(--white); z-index: 199; flex-direction: column; padding: var(--sp-5) var(--sp-6); gap: 0; border-top: var(--border); overflow-y: auto; }
+    .nav__drawer.open { display: flex; }
+    .nav__drawer a, .nav__drawer-section-label { text-decoration: none; color: var(--fg-1); font-size: var(--fs-lead); font-weight: 500; padding: var(--sp-3) 0; border-bottom: var(--border); display: block; }
+    .nav__drawer-sub { padding-left: var(--sp-5); }
+    .nav__drawer-sub a { font-size: var(--fs-body); color: var(--fg-2); font-weight: 400; }
+    .nav__drawer .nav__cta { text-align: center; padding: var(--sp-4); margin-top: var(--sp-3); border-bottom: none; }
+
+    /* ── Shared section styles ──────────────────────────────── */
+    .section { padding: var(--sp-10) var(--sp-6); }
+    .section--alt { background: var(--ink-50); }
+    .section--dark { background: var(--ink-900); color: var(--white); }
+    .section--red { background: var(--red); color: var(--white); }
+    .section__inner { max-width: var(--max-w); margin: 0 auto; }
+    .section__eyebrow { font-family: var(--font-display); font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tr-ultra); color: var(--red); margin-bottom: var(--sp-3); text-align: center; }
+    .section--dark .section__eyebrow { color: rgba(255,255,255,0.55); }
+    .section__headline { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 700; line-height: var(--lh-tight); letter-spacing: var(--tr-tight); text-align: center; max-width: 800px; margin: 0 auto var(--sp-8); }
+    .section--dark .section__headline, .section--red .section__headline { color: var(--white); }
+
+    /* ── Problem section ────────────────────────────────────── */
+    .problem { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-8); align-items: center; }
+    .problem__copy h2 { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 700; line-height: var(--lh-tight); letter-spacing: var(--tr-tight); margin-bottom: var(--sp-5); }
+    .problem__copy p { font-size: var(--fs-lead); color: var(--fg-2); line-height: var(--lh-normal); }
+    .problem__visual { display: flex; flex-direction: column; gap: var(--sp-4); }
+    .prob-card { background: var(--white); border-radius: var(--radius-md); border: var(--border); box-shadow: var(--shadow-1); padding: var(--sp-5); display: flex; align-items: flex-start; gap: var(--sp-4); }
+    .prob-card__icon { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; }
+    .prob-card__icon--before { background: var(--red-100); }
+    .prob-card__icon--after  { background: #E3F4EA; }
+    .prob-card__text { display: flex; flex-direction: column; gap: 4px; }
+    .prob-card__label { font-family: var(--font-display); font-size: var(--fs-small); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tr-ultra); }
+    .prob-card__label--before { color: var(--red); }
+    .prob-card__label--after  { color: #0E8A4A; }
+    .prob-card p { font-size: var(--fs-body); color: var(--fg-2); margin: 0; }
+
+    /* ── Features grid ──────────────────────────────────────── */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: var(--sp-5); }
+    .feature-card { background: var(--white); padding: var(--sp-6); border-radius: var(--radius-md); box-shadow: var(--shadow-1); border: var(--border); transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out); }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-3); border-color: rgba(237,28,36,0.2); }
+    .feature-card__icon { width: 52px; height: 52px; background: var(--grad-logo); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--sp-5); }
+    .feature-card h3 { font-family: var(--font-display); font-size: var(--fs-h5); font-weight: 600; letter-spacing: var(--tr-snug); margin-bottom: var(--sp-3); }
+    .feature-card p { color: var(--fg-2); font-size: var(--fs-body); margin: 0; }
+
+    /* ── Steps ──────────────────────────────────────────────── */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-6); }
+    .step { position: relative; }
+    .step:not(:last-child)::after { content: ''; position: absolute; top: 30px; left: calc(50% + 30px); width: calc(100% - 60px); height: 2px; background: linear-gradient(to right, var(--red), var(--ink-200)); }
+    .step__number { width: 60px; height: 60px; background: var(--red); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 700; margin: 0 auto var(--sp-5); position: relative; z-index: 1; box-shadow: var(--shadow-red); }
+    .step h3 { font-family: var(--font-display); font-size: var(--fs-h5); font-weight: 600; margin-bottom: var(--sp-3); text-align: center; }
+    .step p { color: var(--fg-2); font-size: var(--fs-body); text-align: center; }
+
+    /* ── Stats bar ──────────────────────────────────────────── */
+    .stats-bar { background: var(--white); padding: var(--sp-7) var(--sp-6); border-bottom: var(--border); }
+    .stats-bar__inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-7); }
+    .stat { text-align: center; }
+    .stat__number { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 700; color: var(--red); line-height: 1; margin-bottom: var(--sp-2); }
+    .stat__label { font-size: var(--fs-body); color: var(--fg-2); }
+
+    /* ── Logo bar ───────────────────────────────────────────── */
+    .logo-bar { background: var(--white); padding: var(--sp-7) var(--sp-6); border-bottom: var(--border); }
+    .logo-bar__inner { max-width: var(--max-w); margin: 0 auto; text-align: center; }
+    .logo-bar__label { font-family: var(--font-display); font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tr-ultra); color: var(--fg-2); margin-bottom: var(--sp-5); }
+    .logo-bar__logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--sp-5) var(--sp-8); }
+    .logo-bar__logos img { height: 104px; width: auto; display: block; filter: grayscale(1) opacity(0.5); transition: filter var(--dur-med) var(--ease-out); }
+    .logo-bar__logos img:hover { filter: grayscale(0) opacity(1); }
+
+    /* ── Testimonials ───────────────────────────────────────── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
+    .testimonial { background: var(--white); padding: var(--sp-6); border-radius: var(--radius-md); box-shadow: var(--shadow-1); border: var(--border); display: flex; flex-direction: column; gap: var(--sp-4); }
+    .testimonial__stars { display: flex; gap: 3px; color: var(--red); }
+    .testimonial__quote { font-size: var(--fs-body); line-height: var(--lh-normal); color: var(--fg-1); flex: 1; font-style: italic; }
+    .testimonial__author { font-weight: 600; color: var(--red); font-size: var(--fs-body); }
+
+    /* ── Pricing calculator ─────────────────────────────────── */
+    .nc-card{background:#fff;border:1px solid var(--ink-200);border-radius:16px;box-shadow:0 8px 32px rgba(11,11,12,.1);overflow:hidden;max-width:960px;margin:0 auto}
+    .nc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--ink-100)}
+    .nc-col{padding:2rem 2rem 1.75rem;border-right:1px solid var(--ink-100)}
+    .nc-col:last-child{border-right:none}
+    .nc-step{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:.4rem;font-family:var(--font-display)}
+    .nc-q{font-size:15px;font-weight:600;color:var(--ink-900);margin-bottom:1.25rem;line-height:1.35}
+    .nc-count{display:flex;align-items:center;gap:14px;margin-bottom:.5rem}
+    .nc-btn{width:40px;height:40px;border-radius:8px;border:1.5px solid var(--ink-300);background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-600);transition:all 120ms;font-weight:500;flex-shrink:0;font-family:var(--font-ui)}
+    .nc-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-50)}
+    .nc-num{font-size:40px;font-weight:700;min-width:56px;text-align:center;color:var(--ink-900);font-family:var(--font-display);line-height:1}
+    .nc-unit{font-size:13px;color:var(--ink-400)}
+    .nc-opts{display:flex;flex-direction:column;gap:8px}
+    .nc-opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid var(--ink-200);border-radius:9px;cursor:pointer;background:#fff;text-align:left;transition:all 120ms;width:100%;font-family:var(--font-ui)}
+    .nc-opt:hover{border-color:var(--red-100);background:var(--red-50)}
+    .nc-opt.sel{border-color:var(--red);background:var(--red-50)}
+    .nc-radio{width:17px;height:17px;border-radius:50%;border:2px solid var(--ink-300);flex-shrink:0;transition:all 120ms}
+    .nc-opt.sel .nc-radio{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px var(--red-100)}
+    .nc-main{font-size:14px;font-weight:500;color:var(--ink-900);line-height:1.2}
+    .nc-sub{font-size:11px;color:var(--ink-400);margin-top:1px}
+    .nc-summary{background:var(--red);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+    .nc-price-wrap{display:flex;flex-direction:column;gap:3px}
+    .nc-price{font-family:var(--font-display);font-size:40px;font-weight:700;color:#fff;line-height:1}
+    .nc-price span{font-size:16px;font-weight:400;color:rgba(255,255,255,.65)}
+    .nc-detail{font-size:13px;color:rgba(255,255,255,.82)}
+    .nc-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .nc-buy{background:#fff;color:var(--red);padding:11px 22px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px;white-space:nowrap;transition:background 120ms}
+    .nc-buy:hover{background:var(--red-50)}
+    .nc-demo{border:1.5px solid rgba(255,255,255,.55);color:#fff;padding:11px 22px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;white-space:nowrap;transition:all 120ms;font-family:var(--font-ui)}
+    .nc-demo:hover{border-color:#fff}
+    @media(max-width:760px){
+      .nc-grid{grid-template-columns:1fr}
+      .nc-col{border-right:none;border-bottom:1px solid var(--ink-100)}
+      .nc-col:last-child{border-bottom:none}
+      .nc-summary{flex-direction:column;align-items:flex-start}
+    }
+
+    /* ── Final CTA ──────────────────────────────────────────── */
+    .final-cta { text-align: center; }
+    .final-cta h2 { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 700; letter-spacing: var(--tr-tight); line-height: var(--lh-tight); color: var(--white); margin-bottom: var(--sp-4); }
+    .final-cta p { font-size: var(--fs-lead); color: rgba(255,255,255,0.9); margin-bottom: var(--sp-7); }
+    .final-cta .cta-group { justify-content: center; }
+    .cta-group { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
+    .btn-white { background: var(--white); color: var(--red); padding: var(--sp-4) var(--sp-6); border-radius: var(--radius-md); font-weight: 700; text-decoration: none; font-size: var(--fs-lead); transition: background var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out); display: inline-block; white-space: nowrap; }
+    .btn-white:hover { background: var(--red-50); box-shadow: 0 4px 16px rgba(0,0,0,.15); }
+    .btn-secondary { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: var(--sp-4) var(--sp-6); border-radius: var(--radius-md); font-weight: 600; text-decoration: none; font-size: var(--fs-lead); transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); display: inline-block; white-space: nowrap; cursor: pointer; font-family: var(--font-ui); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.5); }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer { background: var(--ink-900); padding: var(--sp-7) var(--sp-6) var(--sp-6); }
+    .footer__inner { max-width: var(--max-w); margin: 0 auto; }
+    .footer__top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-7); flex-wrap: wrap; padding-bottom: var(--sp-6); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--sp-6); }
+    .footer__brand { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .footer__brand img { height: 28px; width: auto; max-width: 180px; object-fit: contain; }
+    .footer__brand p { color: rgba(255,255,255,0.5); font-size: var(--fs-small); max-width: 280px; }
+    .footer__cols { display: flex; gap: var(--sp-8); flex-wrap: wrap; }
+    .footer__col { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .footer__col-label { font-family: var(--font-display); font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tr-ultra); color: rgba(255,255,255,0.4); margin-bottom: var(--sp-1); }
+    .footer__col a { text-decoration: none; color: rgba(255,255,255,0.7); font-size: var(--fs-body); transition: color var(--dur-base) var(--ease-out); }
+    .footer__col a:hover { color: var(--white); }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--sp-4); }
+    .footer__copy { color: rgba(255,255,255,0.4); font-size: var(--fs-small); }
+    .footer__legal { display: flex; gap: var(--sp-5); }
+    .footer__legal a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: var(--fs-small); }
+    .footer__legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* Video modal */
+    .video-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:var(--sp-5)}
+    .video-modal.open{display:flex}
+    .video-modal__box{position:relative;width:100%;max-width:900px;background:#000;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-3)}
+    .video-modal__close{position:absolute;top:var(--sp-3);right:var(--sp-3);z-index:10;background:rgba(0,0,0,.6);border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;transition:background var(--dur-base)}
+    .video-modal__close:hover{background:rgba(0,0,0,.9)}
+    .video-modal video{width:100%;display:block;max-height:80vh}
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav__links { display: none; }
+      .nav__burger { display: flex; }
+      .stats-bar__inner { grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
+      .problem { grid-template-columns: 1fr; gap: var(--sp-6); }
+      .steps { grid-template-columns: repeat(2, 1fr); gap: var(--sp-5); }
+      .step:not(:last-child)::after { display: none; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .section__headline { font-size: var(--fs-h3); }
+      .section { padding: var(--sp-8) var(--sp-5); }
+    }
+    @media (max-width: 560px) {
+      :root { --sp-6: 20px; }
+      .cta-group { flex-direction: column; }
+      .stats-bar__inner { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .footer__top { flex-direction: column; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+  <style>
+  /* ── Home Hero ────────────────────────────────────────────────────────── */
+  .home-hero{
+    position:relative;width:100%;min-height:800px;
+    margin-top:var(--nav-h);
+    padding:120px 0 140px;
+    background:
+      radial-gradient(120% 80% at 80% 10%, rgba(237,28,36,.55) 0%, transparent 60%),
+      radial-gradient(80% 60% at 20% 90%, rgba(122,20,24,.85) 0%, transparent 65%),
+      linear-gradient(135deg, #5e0f12 0%, #8e1418 35%, #c41a20 75%, #ed1c24 100%);
+    overflow:hidden;isolation:isolate;color:#fff;
+  }
+  .home-hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:url("project/assets/jet-symbol-solid.png");
+    background-size:560px;background-position:right -160px top -120px;background-repeat:no-repeat;
+    opacity:.06;mix-blend-mode:screen;z-index:0;pointer-events:none;
+  }
+  .home-hero::after{
+    content:"";position:absolute;inset:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 .08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity:.4;mix-blend-mode:overlay;pointer-events:none;z-index:0;
+  }
+  .hh-wrap{
+    position:relative;z-index:1;
+    max-width:1320px;margin:0 auto;padding:0 40px;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+    gap:48px;align-items:center;
+  }
+  .hh-eyebrow{
+    font-family:var(--font-display);font-weight:600;font-size:14px;
+    letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:32px;
+    opacity:0;animation:hh-fadeUp .7s .1s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .home-hero h1{
+    font-family:var(--font-display);font-weight:700;font-size:74px;
+    line-height:1.0;letter-spacing:-.015em;margin:0 0 28px;color:#fff;text-wrap:balance;
+    opacity:0;animation:hh-fadeUp .8s .2s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .hh-lede{
+    font-size:18px;line-height:1.55;color:rgba(255,255,255,.86);
+    max-width:520px;margin:0 0 40px;
+    opacity:0;animation:hh-fadeUp .7s .35s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .hh-ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:hh-fadeUp .6s .5s cubic-bezier(.2,.8,.2,1) forwards}
+  .hh-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    height:54px;padding:0 26px;
+    font-family:var(--font-ui);font-weight:600;font-size:16px;
+    border-radius:4px;border:0;cursor:pointer;text-decoration:none;
+    transition:transform 80ms ease-out,box-shadow 120ms ease-out;
+  }
+  .hh-btn-primary{background:#fff;color:var(--red);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .hh-btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(0,0,0,.24)}
+  .hh-btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(8px)}
+  .hh-btn-ghost:hover{background:rgba(255,255,255,.14)}
+  @keyframes hh-fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── Hero composition: desk phone ───────────────────────── */
+  .hh-composition{position:relative;width:100%;aspect-ratio:12/10;perspective:1800px}
+  .hh-composition::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(48% 55% at 55% 50%, rgba(255,200,200,.22) 0%, transparent 70%);
+    filter:blur(8px);z-index:0;
+  }
+
+  /* Desk phone base unit — wider/shorter than mobile phone */
+  .hh-phone{
+    position:absolute;left:50%;top:50%;
+    width:340px;height:480px;transform-style:preserve-3d;
+    border-radius:18px;
+    background:linear-gradient(160deg,#232328 0%,#131315 100%);
+    padding:10px;
+    box-shadow:0 40px 80px rgba(0,0,0,.55),0 12px 30px rgba(0,0,0,.4),inset 0 0 0 1.5px rgba(255,255,255,.08),inset 0 0 0 3px rgba(0,0,0,.6);
+    z-index:2;opacity:0;
+    transform:translate(-50%,-50%) rotateY(-8deg) rotateX(4deg) rotateZ(-1.5deg) scale(.94);
+    animation:hh-phoneIn 1s .2s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes hh-phoneIn{to{opacity:1;transform:translate(-50%,-50%) rotateY(-8deg) rotateX(4deg) rotateZ(-1.5deg) scale(1)}}
+
+  /* Left side light strip (like a physical phone edge) */
+  .hh-phone::before{
+    content:"";position:absolute;left:-2px;top:60px;bottom:60px;width:2px;
+    background:linear-gradient(180deg,transparent,rgba(255,255,255,.35),transparent);border-radius:2px;
+  }
+
+  /* ── Desk phone screen ──────────────────────────────────── */
+  .hh-screen{
+    position:relative;width:100%;height:100%;border-radius:10px;
+    background:linear-gradient(180deg,#0d1117 0%,#0a0c10 100%);
+    overflow:hidden;color:#fff;font-family:var(--font-ui);
+    display:flex;flex-direction:column;
+  }
+
+  /* Top status bar */
+  .hh-dp-statusbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 14px 6px;
+    background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .hh-dp-statusbar .brand{font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .hh-dp-statusbar .time{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);font-family:monospace}
+
+  /* Line indicators */
+  .hh-dp-lines{display:flex;gap:6px;padding:8px 14px 0}
+  .hh-dp-line{
+    flex:1;padding:5px 8px;border-radius:6px;font-size:9px;font-weight:600;
+    letter-spacing:.06em;text-transform:uppercase;
+    display:flex;align-items:center;gap:5px;
+  }
+  .hh-dp-line.active{background:rgba(38,217,122,.12);border:1px solid rgba(38,217,122,.25);color:#26d97a}
+  .hh-dp-line.idle{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
+  .hh-dp-line .dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:hh-livePulse2 1.4s infinite}
+  .hh-dp-line.idle .dot{animation:none;background:rgba(255,255,255,.2)}
+  @keyframes hh-livePulse2{0%{box-shadow:0 0 0 0 rgba(38,217,122,.6)}70%{box-shadow:0 0 0 5px rgba(38,217,122,0)}100%{box-shadow:0 0 0 0 rgba(38,217,122,0)}}
+
+  /* Active call display */
+  .hh-dp-call{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 14px;gap:6px}
+  .hh-dp-call-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;background:rgba(38,217,122,.15);border:1px solid rgba(38,217,122,.3);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#26d97a;margin-bottom:4px}
+  .hh-dp-call-badge .dot{width:5px;height:5px;border-radius:50%;background:#26d97a;animation:hh-livePulse2 1.2s infinite}
+  .hh-dp-call-via{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+  .hh-dp-call-num{font-family:var(--font-display);font-size:13px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.04em;margin-bottom:6px}
+  .hh-dp-call-contact{font-family:var(--font-display);font-size:22px;font-weight:700;color:#fff;letter-spacing:-.01em;text-align:center;line-height:1.1}
+  .hh-dp-call-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px}
+  .hh-dp-timer{font-family:monospace;font-size:26px;font-weight:700;color:#26d97a;letter-spacing:.06em;margin:8px 0}
+  @keyframes hh-timerBlink{50%{opacity:.7}}
+
+  /* Call control buttons */
+  .hh-dp-controls{display:flex;justify-content:center;gap:8px;padding:0 10px 6px}
+  .hh-dp-ctrl{
+    flex:1;max-width:64px;aspect-ratio:1;border-radius:10px;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  }
+  .hh-dp-ctrl svg{width:14px;height:14px;color:rgba(255,255,255,.65)}
+  .hh-dp-ctrl span{font-size:8px;color:rgba(255,255,255,.4);font-weight:500;letter-spacing:.04em}
+  .hh-dp-ctrl.active-ctrl{background:rgba(237,28,36,.18);border-color:rgba(237,28,36,.3)}
+  .hh-dp-ctrl.active-ctrl svg{color:#ED1C24}
+
+  /* Keypad area */
+  .hh-dp-keypad{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:6px 10px 8px}
+  .hh-dp-key{
+    aspect-ratio:1;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-size:13px;font-weight:600;color:rgba(255,255,255,.7);gap:1px;
+  }
+  .hh-dp-key .sub{font-size:7px;color:rgba(255,255,255,.25);letter-spacing:.05em;font-family:var(--font-ui);font-weight:500}
+  .hh-dp-key.fn{background:rgba(237,28,36,.15);border-color:rgba(237,28,36,.2);color:#ED1C24;font-size:9px}
+  .hh-dp-key.nav{background:rgba(255,255,255,.04);color:rgba(255,255,255,.3);font-size:10px}
+
+  /* satellite cards */
+  .hh-card{
+    position:absolute;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
+    border-radius:14px;color:#fff;
+    box-shadow:0 24px 50px rgba(0,0,0,.32),0 4px 12px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.12);
+    z-index:3;opacity:0;
+  }
+  .hh-card .ck-label{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;font-family:var(--font-display);display:flex;align-items:center;gap:6px}
+  .hh-card .ck-label .lr{width:6px;height:6px;border-radius:50%;background:var(--red,#ED1C24);box-shadow:0 0 6px var(--red,#ED1C24)}
+
+  /* Card 1: Live reporting (top-left) */
+  .hh-card-reporting{top:6%;left:-4%;width:230px;padding:14px 16px;transform:translate(-30px,-20px) rotate(-3deg) scale(.92);animation:hh-cardIn1 .8s .6s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes hh-cardIn1{to{opacity:1;transform:translate(0,0) rotate(-3deg) scale(1)}}
+  .hh-card-reporting .ck-label{margin-bottom:10px}
+  .hh-card-reporting .title{font-family:var(--font-display);font-weight:700;font-size:15px;line-height:1.15;margin-bottom:10px}
+  .hh-mini-bars{display:flex;align-items:flex-end;gap:4px;height:34px;margin-bottom:8px}
+  .hh-mini-bars span{flex:1;border-radius:2px 2px 0 0;background:linear-gradient(180deg,#fff,#ffb3b6);transform-origin:bottom;transform:scaleY(0);animation:hh-miniGrow .7s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes hh-miniGrow{to{transform:scaleY(1)}}
+  .hh-mini-bars span:nth-child(1){height:40%;animation-delay:1.2s}
+  .hh-mini-bars span:nth-child(2){height:65%;animation-delay:1.32s}
+  .hh-mini-bars span:nth-child(3){height:50%;animation-delay:1.44s}
+  .hh-mini-bars span:nth-child(4){height:85%;animation-delay:1.56s}
+  .hh-mini-bars span:nth-child(5){height:60%;animation-delay:1.68s}
+  .hh-mini-bars span:nth-child(6){height:95%;animation-delay:1.8s}
+  .hh-mini-bars span:nth-child(7){height:75%;animation-delay:1.92s}
+  .hh-card-reporting .stats{display:flex;justify-content:space-between;align-items:baseline;font-size:10px}
+  .hh-card-reporting .stats .n{font-family:var(--font-display);font-weight:700;font-size:18px;color:#fff;line-height:1}
+  .hh-card-reporting .stats .u{font-size:9.5px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase}
+
+  /* Card 2: Device types (mid-left) */
+  .hh-card-anywhere{top:48%;left:-7%;width:210px;padding:14px 16px;transform:translate(-36px,8px) rotate(2deg) scale(.92);animation:hh-cardIn2 .8s .85s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes hh-cardIn2{to{opacity:1;transform:translate(0,0) rotate(2deg) scale(1)}}
+  .hh-card-anywhere .ck-label{margin-bottom:10px}
+  .hh-card-anywhere .title{font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:10px}
+  .hh-platforms{display:flex;gap:8px}
+  .hh-plat{flex:1;padding:8px 4px;text-align:center;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);border-radius:8px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .hh-plat svg{width:14px;height:14px;color:rgba(255,255,255,.75)}
+
+  /* Card 3: Australian owned (top-right) */
+  .hh-card-au{top:5%;right:-3%;width:220px;padding:14px 16px;transform:translate(30px,-20px) rotate(2.5deg) scale(.92);animation:hh-cardIn3 .8s .7s cubic-bezier(.2,.8,.2,1) forwards;display:flex;align-items:center;gap:12px}
+  @keyframes hh-cardIn3{to{opacity:1;transform:translate(0,0) rotate(2.5deg) scale(1)}}
+  .hh-au-flag{width:42px;height:42px;border-radius:10px;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px;line-height:1}
+  .hh-card-au .body{flex:1;min-width:0}
+  .hh-card-au .body .ck-label{margin-bottom:4px}
+  .hh-card-au .title{font-family:var(--font-display);font-weight:700;font-size:14px;margin-top:4px}
+  .hh-card-au .sub{font-size:10.5px;color:rgba(255,255,255,.6);margin-top:2px;font-family:monospace}
+
+  /* Card 4: Callflow builder (mid-right) */
+  .hh-card-admin{top:46%;right:-6%;width:235px;padding:14px 16px;transform:translate(36px,8px) rotate(-2deg) scale(.92);animation:hh-cardIn4 .8s .95s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes hh-cardIn4{to{opacity:1;transform:translate(0,0) rotate(-2deg) scale(1)}}
+  .hh-card-admin .ck-label{margin-bottom:10px}
+  .hh-card-admin .title{font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:10px}
+  .hh-flow{display:flex;flex-direction:column;gap:5px}
+  .hh-flow-row{display:flex;align-items:center;gap:5px}
+  .hh-flow-node{padding:4px 8px;border-radius:6px;font-size:9.5px;font-weight:600;letter-spacing:.03em;white-space:nowrap}
+  .hh-flow-node.inbound{background:rgba(237,28,36,.25);border:1px solid rgba(237,28,36,.4);color:#ffb3b6}
+  .hh-flow-node.ivr{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff}
+  .hh-flow-node.route{background:rgba(38,217,122,.12);border:1px solid rgba(38,217,122,.25);color:#26d97a}
+  .hh-flow-node.queue{background:rgba(250,183,64,.12);border:1px solid rgba(250,183,64,.25);color:#fab340}
+  .hh-flow-arrow{color:rgba(255,255,255,.3);font-size:10px;flex-shrink:0}
+  .hh-card-admin .sub{font-size:10px;color:rgba(255,255,255,.5);margin-top:8px}
+
+  /* Card 5: Call queue / live (bottom-right) */
+  .hh-card-live{bottom:8%;right:-10%;width:228px;padding:14px 16px;transform:translate(36px,20px) rotate(3deg) scale(.92);animation:hh-cardIn5 .8s 1.05s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes hh-cardIn5{to{opacity:1;transform:translate(0,0) rotate(3deg) scale(1)}}
+  .hh-card-live .ck-label{margin-bottom:8px}
+  .hh-card-live .ck-label .lr{background:#26d97a;box-shadow:0 0 6px #26d97a;animation:hh-livePulse 1.4s infinite}
+  @keyframes hh-livePulse{0%{box-shadow:0 0 0 0 rgba(38,217,122,.6),0 0 6px #26d97a}70%{box-shadow:0 0 0 8px rgba(38,217,122,0),0 0 6px #26d97a}100%{box-shadow:0 0 0 0 rgba(38,217,122,0),0 0 6px #26d97a}}
+  .hh-card-live .big{display:flex;flex-direction:column;gap:2px;font-family:var(--font-display);font-weight:700}
+  .hh-card-live .big .n{font-size:38px;letter-spacing:-.02em;line-height:1;background:linear-gradient(180deg,#fff,#ffb3b6);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+  .hh-card-live .big .u{font-size:11px;color:rgba(255,255,255,.7);font-family:var(--font-ui);font-weight:500;letter-spacing:.02em}
+  .hh-card-live .sub{font-size:10.5px;color:rgba(255,255,255,.55);margin-top:8px;line-height:1.45}
+
+  /* Card 6: Number types (bottom-left) */
+  .hh-card-hidden{bottom:8%;left:-4%;width:240px;padding:12px 14px;transform:translate(-30px,18px) rotate(-2deg) scale(.92);animation:hh-cardIn6 .8s 1.15s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes hh-cardIn6{to{opacity:1;transform:translate(0,0) rotate(-2deg) scale(1)}}
+  .hh-card-hidden .ck-label{margin-bottom:8px}
+  .hh-numtypes{display:flex;flex-direction:column;gap:5px}
+  .hh-numtype{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;border-radius:7px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08)}
+  .hh-numtype .badge{font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:4px}
+  .hh-numtype .badge.local{background:rgba(237,28,36,.25);color:#ffb3b6}
+  .hh-numtype .badge.t1300{background:rgba(38,217,122,.15);color:#26d97a}
+  .hh-numtype .badge.t1800{background:rgba(250,183,64,.15);color:#fab340}
+  .hh-numtype .num{font-family:monospace;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.04em}
+
+  @media(prefers-reduced-motion:reduce){
+    .home-hero *{animation-duration:.01ms!important;animation-iteration-count:1!important}
+    .hh-card{opacity:1!important;transform:none!important}
+  }
+  @media(max-width:1200px){
+    .home-hero h1{font-size:54px}
+    .hh-wrap{grid-template-columns:1fr;gap:64px}
+    .hh-composition{max-width:620px;margin:0 auto}
+  }
+  @media(max-width:600px){
+    .home-hero{padding:80px 0 100px}
+    .home-hero h1{font-size:40px}
+    .hh-composition{display:none}
+    .hh-wrap{padding:0 20px}
+  }
+  </style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WSH8LKXT');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSH8LKXT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Primary">
+    <div class="nav__inner">
+      <a href="./" class="nav__logo" aria-label="Jet Interactive home"><img src="project/assets/jet-logo-full-color.png" alt="Jet Interactive" width="1200" height="434"></a>
+      <a href="tel:0488811729" class="nav__phone">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.3 13.38a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2.5h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+        0488 811 729
+      </a>
+      <ul class="nav__links" role="list">
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true">
+            Solutions
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav__dropdown-menu" role="menu">
+            <a href="solutions/sales-teams">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Sales Teams
+            </a>
+            <a href="solutions/customer-service">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.3 13.38a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2.5h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+              Customer Service
+            </a>
+            <a href="solutions/multi-location">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Multi-Location Business
+            </a>
+            <a href="solutions/small-business">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Small Business
+            </a>
+          </div>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true">
+            Industries
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav__dropdown-menu" role="menu">
+            <a href="industries/automotive">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Automotive
+            </a>
+            <a href="industries/real-estate">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Real Estate
+            </a>
+            <a href="industries/professional-services">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+              Professional Services
+            </a>
+            <a href="industries/healthcare">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Healthcare
+            </a>
+          </div>
+        </li>
+        <li><a href="features">Features</a></li>
+        <li><a href="pricing">Pricing</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true">
+            Resources
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav__dropdown-menu" role="menu">
+            <a href="faq">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              FAQ
+            </a>
+            <a href="articles">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Articles
+            </a>
+            <a href="downloads">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Downloads
+            </a>
+            <a href="videos">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              Videos
+            </a>
+            <a href="knowledgebase">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              Knowledgebase
+            </a>
+          </div>
+        </li>
+        <li><div style="width:1px;height:20px;background:var(--ink-200)"></div></li>
+        <li><a href="contact">Contact</a></li>
+        <li><a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="nav__cta">Get a quote</a></li>
+      </ul>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__drawer" id="navDrawer" aria-hidden="true">
+      <span class="nav__drawer-section-label">Solutions</span>
+      <div class="nav__drawer-sub">
+        <a href="solutions/sales-teams">Sales Teams</a>
+        <a href="solutions/customer-service">Customer Service</a>
+        <a href="solutions/multi-location">Multi-Location Business</a>
+        <a href="solutions/small-business">Small Business</a>
+      </div>
+      <span class="nav__drawer-section-label">Industries</span>
+      <div class="nav__drawer-sub">
+        <a href="industries/automotive">Automotive</a>
+        <a href="industries/real-estate">Real Estate</a>
+        <a href="industries/professional-services">Professional Services</a>
+        <a href="industries/healthcare">Healthcare</a>
+      </div>
+      <a href="features">Features</a>
+      <a href="pricing">Pricing</a>
+      <span class="nav__drawer-section-label">Resources</span>
+      <div class="nav__drawer-sub">
+        <a href="faq">FAQ</a>
+        <a href="articles">Articles</a>
+        <a href="downloads">Downloads</a>
+        <a href="videos">Videos</a>
+        <a href="knowledgebase">Knowledgebase</a>
+      </div>
+      <a href="contact">Contact</a>
+      <a href="tel:0488811729" class="nav__phone" style="padding:var(--sp-3) 0;border-bottom:var(--border);font-size:var(--fs-lead)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.3 13.38a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2.5h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+        0488 811 729
+      </a>
+      <a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="nav__cta">Get a quote</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section class="home-hero" aria-label="Hero">
+    <div class="hh-wrap">
+
+      <!-- LEFT — copy -->
+      <div class="hh-copy">
+        <div class="hh-eyebrow">Australia's Cloud Business Phone System</div>
+        <h1>Your office phone system, in the cloud.</h1>
+        <p class="hh-lede">Local numbers, 1300 and 1800 numbers with a full cloud PBX — IVR menus, geographic routing, call queuing, and a drag-and-drop callflow builder. Desk phones, softphones and mobile app included. From $25/month per user.</p>
+        <div class="hh-ctas">
+          <a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="hh-btn hh-btn-primary">Get a quote</a>
+          <button class="hh-btn hh-btn-ghost" id="openVideoModal">Watch how it works</button>
+        </div>
+      </div>
+
+      <!-- RIGHT — composition -->
+      <div class="hh-composition" aria-label="Jet Business Phone desk phone interface showing an active call, with callflow builder, call analytics, geographic routing and number type highlights">
+
+        <!-- DESK PHONE MOCKUP -->
+        <div class="hh-phone">
+          <div class="hh-screen">
+
+            <!-- Status bar -->
+            <div class="hh-dp-statusbar">
+              <span class="brand">Jet Hub</span>
+              <span class="time">9:41</span>
+            </div>
+
+            <!-- Line indicators -->
+            <div class="hh-dp-lines">
+              <div class="hh-dp-line active"><span class="dot"></span>Line 1 · Active</div>
+              <div class="hh-dp-line idle"><span class="dot"></span>Line 2 · Idle</div>
+              <div class="hh-dp-line idle"><span class="dot"></span>Line 3 · Idle</div>
+            </div>
+
+            <!-- Active call display -->
+            <div class="hh-dp-call">
+              <div class="hh-dp-call-badge"><span class="dot"></span>In Call</div>
+              <div class="hh-dp-call-via">Via your 1300 number</div>
+              <div class="hh-dp-call-num">1300 555 123</div>
+              <div class="hh-dp-call-contact">Sarah Mitchell</div>
+              <div class="hh-dp-call-sub">0412 345 678 · Inbound</div>
+              <div class="hh-dp-timer" id="callTimer">02:34</div>
+            </div>
+
+            <!-- Call controls -->
+            <div class="hh-dp-controls">
+              <div class="hh-dp-ctrl">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                <span>Mute</span>
+              </div>
+              <div class="hh-dp-ctrl">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                <span>Hold</span>
+              </div>
+              <div class="hh-dp-ctrl">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                <span>Transfer</span>
+              </div>
+              <div class="hh-dp-ctrl active-ctrl">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Record</span>
+              </div>
+            </div>
+
+            <!-- Keypad -->
+            <div class="hh-dp-keypad">
+              <div class="hh-dp-key">1<span class="sub"></span></div>
+              <div class="hh-dp-key">2<span class="sub">ABC</span></div>
+              <div class="hh-dp-key">3<span class="sub">DEF</span></div>
+              <div class="hh-dp-key nav">▲</div>
+              <div class="hh-dp-key">4<span class="sub">GHI</span></div>
+              <div class="hh-dp-key">5<span class="sub">JKL</span></div>
+              <div class="hh-dp-key">6<span class="sub">MNO</span></div>
+              <div class="hh-dp-key nav">OK</div>
+              <div class="hh-dp-key">7<span class="sub">PQRS</span></div>
+              <div class="hh-dp-key">8<span class="sub">TUV</span></div>
+              <div class="hh-dp-key">9<span class="sub">WXYZ</span></div>
+              <div class="hh-dp-key nav">▼</div>
+              <div class="hh-dp-key">*</div>
+              <div class="hh-dp-key">0<span class="sub">+</span></div>
+              <div class="hh-dp-key">#</div>
+              <div class="hh-dp-key fn">END</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SATELLITE CARDS -->
+
+        <!-- Reporting (top-left) -->
+        <div class="hh-card hh-card-reporting">
+          <div class="ck-label"><span class="lr"></span>Call analytics</div>
+          <div class="title">Every call, tracked</div>
+          <div class="hh-mini-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="stats">
+            <span><span class="n">1,284</span><br/><span class="u">Inbound</span></span>
+            <span><span class="n">94%</span><br/><span class="u">Answered</span></span>
+          </div>
+        </div>
+
+        <!-- Device types (mid-left) -->
+        <div class="hh-card hh-card-anywhere">
+          <div class="ck-label">Use on any device</div>
+          <div class="title">Desk · Desktop · Mobile</div>
+          <div class="hh-platforms">
+            <div class="hh-plat">
+              <!-- Desk phone icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/><path d="M7 9h.01M7 12h.01"/></svg>
+              Desk
+            </div>
+            <div class="hh-plat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Desktop
+            </div>
+            <div class="hh-plat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              Mobile
+            </div>
+          </div>
+        </div>
+
+        <!-- Australian owned (top-right) -->
+        <div class="hh-card hh-card-au">
+          <div class="hh-au-flag">🇦🇺</div>
+          <div class="body">
+            <div class="ck-label">Sydney HQ</div>
+            <div class="title">Australian owned</div>
+            <div class="sub">1300 10 13 10</div>
+          </div>
+        </div>
+
+        <!-- Callflow builder (mid-right) -->
+        <div class="hh-card hh-card-admin">
+          <div class="ck-label">Callflow builder</div>
+          <div class="title">Visual drag &amp; drop</div>
+          <div class="hh-flow">
+            <div class="hh-flow-row">
+              <div class="hh-flow-node inbound">Inbound 1300</div>
+              <span class="hh-flow-arrow">→</span>
+              <div class="hh-flow-node ivr">IVR Menu</div>
+            </div>
+            <div class="hh-flow-row" style="padding-left:16px">
+              <span class="hh-flow-arrow">↳</span>
+              <div class="hh-flow-node route">Geo Route</div>
+              <span class="hh-flow-arrow">→</span>
+              <div class="hh-flow-node queue">Queue</div>
+            </div>
+          </div>
+          <div class="sub">Change your callflow in minutes — no IT needed</div>
+        </div>
+
+        <!-- Live calls (bottom-right) -->
+        <div class="hh-card hh-card-live">
+          <div class="ck-label"><span class="lr"></span>Live now</div>
+          <div class="big">
+            <span class="n" data-target="38">0</span>
+            <span class="u">calls in progress</span>
+          </div>
+          <div class="sub">Across 14 team members nationwide</div>
+        </div>
+
+        <!-- Number types (bottom-left) -->
+        <div class="hh-card hh-card-hidden">
+          <div class="ck-label">Your number types</div>
+          <div class="hh-numtypes">
+            <div class="hh-numtype">
+              <span class="badge local">Local</span>
+              <span class="num">02 9555 0100</span>
+            </div>
+            <div class="hh-numtype">
+              <span class="badge t1300">1300</span>
+              <span class="num">1300 555 123</span>
+            </div>
+            <div class="hh-numtype">
+              <span class="badge t1800">1800</span>
+              <span class="num">1800 555 456</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats bar ────────────────────────────────────────── -->
+  <div class="stats-bar" id="statsBar">
+    <div class="stats-bar__inner">
+      <div class="stat">
+        <div class="stat__number" id="stat1">0</div>
+        <div class="stat__label">Business phone users</div>
+      </div>
+      <div class="stat">
+        <div class="stat__number" id="stat2">0</div>
+        <div class="stat__label">calls handled every month</div>
+      </div>
+      <div class="stat">
+        <div class="stat__number">Since 2006</div>
+        <div class="stat__label">Operating in Australia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Logo bar ─────────────────────────────────────────── -->
+  <div class="logo-bar">
+    <div class="logo-bar__inner">
+      <p class="logo-bar__label">Trusted by Australian businesses including</p>
+      <div class="logo-bar__logos">
+        <img src="project/assets/Jet-logos-150x150.png" alt="Customer logo" width="150" height="150" loading="lazy">
+        <img src="project/assets/Jet-logos-1-150x150.png" alt="Customer logo" width="150" height="150" loading="lazy">
+        <img src="project/assets/1-150x150.png" alt="Customer logo" width="150" height="150" loading="lazy">
+        <img src="project/assets/3-150x150.png" alt="Customer logo" width="150" height="150" loading="lazy">
+        <img src="project/assets/4-150x150.png" alt="Customer logo" width="150" height="150" loading="lazy">
+        <img src="project/assets/5-150x150.png" alt="Customer logo" width="150" height="150" loading="lazy">
+        <img src="project/assets/6-150x150.png" alt="Customer logo" width="150" height="150" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Problem section ──────────────────────────────────── -->
+  <section class="section section--alt">
+    <div class="section__inner">
+      <div class="problem">
+        <div class="problem__copy">
+          <h2>Still on an old phone system?</h2>
+          <p>Legacy PBX hardware locks you in — expensive to change, impossible to manage remotely, and invisible to your business. Jet Business Phone replaces it entirely with a cloud system your team can use from any device, anywhere.</p>
+        </div>
+        <div class="problem__visual">
+          <div class="prob-card">
+            <div class="prob-card__icon prob-card__icon--before">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ED1C24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <div class="prob-card__text">
+              <span class="prob-card__label prob-card__label--before">The problem</span>
+              <p>Expensive on-site hardware, no remote visibility, rigid routing, and a service call every time you need a change.</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;color:var(--fg-3);font-size:13px;padding:4px 0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            Jet Business Phone
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="prob-card">
+            <div class="prob-card__icon prob-card__icon--after">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E8A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="prob-card__text">
+              <span class="prob-card__label prob-card__label--after">The fix</span>
+              <p>Cloud PBX with full call reporting, IVR menus, geographic routing, and callflow changes you make yourself in minutes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How it works ─────────────────────────────────────── -->
+  <section class="section" id="how-it-works">
+    <div class="section__inner">
+      <p class="section__eyebrow">Setup</p>
+      <h2 class="section__headline">Live in one business day.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step__number">1</div>
+          <h3>Choose your numbers</h3>
+          <p>Pick local geographic numbers, 1300 or 1800 numbers — or port your existing numbers across at no charge.</p>
+        </div>
+        <div class="step">
+          <div class="step__number">2</div>
+          <h3>Build your callflow</h3>
+          <p>Use the drag-and-drop callflow builder to set up IVR menus, geographic routing, queues, and greetings.</p>
+        </div>
+        <div class="step">
+          <div class="step__number">3</div>
+          <h3>Set up your team</h3>
+          <p>Add users, assign extensions, configure desk phones or softphones — all from the Jet Hub portal.</p>
+        </div>
+        <div class="step">
+          <div class="step__number">4</div>
+          <h3>Go live</h3>
+          <p>Your team starts taking calls. Full reporting, recording, and real-time visibility from day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Features ─────────────────────────────────────────── -->
+  <section class="section section--alt" id="features">
+    <div class="section__inner">
+      <p class="section__eyebrow">Features</p>
+      <h2 class="section__headline">Enterprise phone features. Without the enterprise price tag.</h2>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/>
+            </svg>
+          </div>
+          <h3>Visual Callflow Builder</h3>
+          <p>Drag-and-drop to build any call routing scenario — IVR menus, time-based routing, geographic routing and more. Make changes yourself in minutes, no IT required.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </div>
+          <h3>IVR Menus</h3>
+          <p>Interactive voice response menus let callers self-select — "Press 1 for Sales, Press 2 for Support." Multi-level menus, custom greetings, and business hours rules all included.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3>Geographic Routing</h3>
+          <p>Route inbound calls to the right office automatically, based on the caller's geographic location. Ideal for businesses with multiple locations across Australia.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <h3>Postcode IVR</h3>
+          <p>Ask callers to enter their postcode and route them to the nearest branch automatically — a seamless experience that eliminates manual transfers and reduces handle time.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+          </div>
+          <h3>Call Queueing</h3>
+          <p>Keep callers in a queue with hold music and position announcements when your team is busy. Set overflow rules, maximum wait times, and callback options.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <h3>Real-Time Reporting</h3>
+          <p>See all call activity in real-time — inbound volumes, answer rates, wait times, agent performance, and missed calls. Export for analysis or compliance at any time.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+          </div>
+          <h3>Local, 1300 &amp; 1800 Numbers</h3>
+          <p>Choose from local geographic numbers (02, 03, 07, 08), national 1300 numbers, or free-to-caller 1800 numbers. Port your existing numbers at no charge.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>
+            </svg>
+          </div>
+          <h3>Call Recording</h3>
+          <p>Record calls automatically for compliance, training, and quality assurance. Recordings are stored securely in the cloud and accessible from your portal at any time.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonials ─────────────────────────────────────── -->
+  <section class="section">
+    <div class="section__inner">
+      <p class="section__eyebrow">Customers</p>
+      <h2 class="section__headline">What our customers say</h2>
+      <div class="testimonials-grid">
+
+        <div class="testimonial">
+          <div class="testimonial__stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial__quote">"We initially switched over to Jet based on cost. We however found their product and service to be excellent. The management platform is extremely powerful and gives us great control over our routing and reporting."</p>
+          <p class="testimonial__author">— Bilal, Managing Director</p>
+        </div>
+
+        <div class="testimonial">
+          <div class="testimonial__stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial__quote">"The callflow builder is a game changer. We can update our IVR menus and routing instantly without waiting on a telco. Having geographic routing send callers to their nearest branch has lifted our answer rates significantly."</p>
+          <p class="testimonial__author">— James, Head of Operations</p>
+        </div>
+
+        <div class="testimonial">
+          <div class="testimonial__stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial__quote">"Jet Hub has made working from home completely seamless. Our team uses a mix of desk phones in the office and the softphone at home — the experience is identical and reporting covers everything."</p>
+          <p class="testimonial__author">— Rosie, Operations Manager</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pricing ───────────────────────────────────────────── -->
+  <section class="section section--alt" id="pricing">
+    <div class="section__inner" style="max-width:980px">
+      <p class="section__eyebrow">Pricing</p>
+      <h2 class="section__headline">Simple pricing. No contracts. No surprises.</h2>
+      <div class="nc-card">
+        <div class="nc-grid">
+          <div class="nc-col">
+            <div class="nc-step">Step 1</div>
+            <div class="nc-q">How many users need a phone?</div>
+            <div class="nc-count">
+              <button class="nc-btn" id="nc-dec">&#8722;</button>
+              <div class="nc-num" id="nc-num">1</div>
+              <button class="nc-btn" id="nc-inc">+</button>
+            </div>
+            <div class="nc-unit">users</div>
+          </div>
+          <div class="nc-col">
+            <div class="nc-step">Step 2</div>
+            <div class="nc-q">What type of numbers do you need?</div>
+            <div class="nc-opts">
+              <button class="nc-opt sel" data-nt="local">
+                <span class="nc-radio"></span>
+                <span><span class="nc-main">Local geographic numbers</span><span class="nc-sub">02, 03, 07, 08 numbers</span></span>
+              </button>
+              <button class="nc-opt" data-nt="1300">
+                <span class="nc-radio"></span>
+                <span><span class="nc-main">1300 numbers</span><span class="nc-sub">National presence, caller pays local rate</span></span>
+              </button>
+              <button class="nc-opt" data-nt="1800">
+                <span class="nc-radio"></span>
+                <span><span class="nc-main">1800 numbers</span><span class="nc-sub">Free for callers across Australia</span></span>
+              </button>
+            </div>
+          </div>
+          <div class="nc-col">
+            <div class="nc-step">Step 3</div>
+            <div class="nc-q">Avg inbound calls per month?</div>
+            <div class="nc-opts">
+              <button class="nc-opt" data-cr="0-100">
+                <span class="nc-radio"></span>
+                <span><span class="nc-main">0 – 100</span><span class="nc-sub">Light usage</span></span>
+              </button>
+              <button class="nc-opt" data-cr="100-500">
+                <span class="nc-radio"></span>
+                <span><span class="nc-main">100 – 500</span><span class="nc-sub">Moderate usage</span></span>
+              </button>
+              <button class="nc-opt" data-cr="500-1000">
+                <span class="nc-radio"></span>
+                <span><span class="nc-main">500 – 1,000</span><span class="nc-sub">Active team</span></span>
+              </button>
+              <button class="nc-opt" data-cr="1000+">
+                <span class="nc-radio"></span>
+                <span><span class="nc-main">1,000+</span><span class="nc-sub">High volume — let's talk</span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="nc-summary">
+          <div class="nc-price-wrap">
+            <div class="nc-price" id="nc-price">A$25<span>/mo</span></div>
+            <div class="nc-detail" id="nc-detail">A$25.00 per user · 1 user · 1,000 minutes included · No lock-in contract</div>
+          </div>
+          <div class="nc-actions" id="nc-actions">
+            <a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="nc-buy">Get a quote — A$25/mo</a>
+            <a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="nc-demo">Book a demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Final CTA ─────────────────────────────────────────── -->
+  <section class="section section--red final-cta" id="get-started">
+    <div class="section__inner">
+      <h2>Ready to upgrade your business phone system?</h2>
+      <p>Join thousands of Australian businesses on the Jet platform. Local, 1300 and 1800 numbers with full PBX features — from $25/month per user, no contracts.</p>
+      <div class="cta-group">
+        <a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="btn-white">Get a quote</a>
+        <a href="contact" class="btn-secondary">Talk to our team</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <img src="project/assets/jet-logo-full-color.png" alt="Jet Interactive" width="1200" height="434">
+          <p>Australia's largest privately owned cloud communications network, purpose-built for business.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <span class="footer__col-label">Solutions</span>
+            <a href="solutions/sales-teams">Sales Teams</a>
+            <a href="solutions/customer-service">Customer Service</a>
+            <a href="solutions/multi-location">Multi-Location</a>
+            <a href="solutions/small-business">Small Business</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-label">Industries</span>
+            <a href="industries/automotive">Automotive</a>
+            <a href="industries/real-estate">Real Estate</a>
+            <a href="industries/professional-services">Professional Services</a>
+            <a href="industries/healthcare">Healthcare</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-label">Resources</span>
+            <a href="features">Features</a>
+            <a href="pricing">Pricing</a>
+            <a href="faq">FAQ</a>
+            <a href="articles">Articles</a>
+            <a href="downloads">Downloads</a>
+            <a href="videos">Videos</a>
+            <a href="knowledgebase">Knowledgebase</a>
+            <a href="contact">Contact</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-label">Legal</span>
+            <a href="Jet-Business-Phone-Critical-Information-Summary.pdf" target="_blank" rel="noopener">Business Phone CIS</a>
+            <a href="Privacy-Policy-Jet-Interactive-V2.0.pdf" target="_blank" rel="noopener">Privacy Policy</a>
+            <a href="Service-Level-Agreement-Jet-Interactive-V2.0.pdf" target="_blank" rel="noopener">SLA</a>
+            <a href="Master-Service-Agreement-Jet-Interactive-V3.0.pdf" target="_blank" rel="noopener">Master Services Agreement</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 Jet Interactive Pty Ltd. All rights reserved. ABN 70 168 999 371.</p>
+        <div class="footer__legal">
+          <a href="Privacy-Policy-Jet-Interactive-V2.0.pdf">Privacy</a>
+          <a href="Master-Service-Agreement-Jet-Interactive-V3.0.pdf">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Video modal -->
+  <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Product video">
+    <div class="video-modal__box">
+      <button class="video-modal__close" id="closeVideoModal" aria-label="Close video">&#x2715;</button>
+      <video id="heroVideo" controls preload="none">
+        <source src="landscape-red__get-a-quote.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    const burger = document.getElementById('navBurger');
+    const drawer = document.getElementById('navDrawer');
+    burger.addEventListener('click', () => {
+      const open = burger.classList.toggle('open');
+      drawer.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      drawer.setAttribute('aria-hidden', String(!open));
+    });
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        drawer.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    // Countup animation
+    function countUp(el, target, duration, format) {
+      const start = performance.now();
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = format(Math.round(ease * target));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          countUp(document.getElementById('stat1'), 25000, 3000, n => n.toLocaleString() + '+');
+          countUp(document.getElementById('stat2'), 2000000, 3000, n => {
+            if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0', '') + 'M+';
+            if (n >= 1000) return (n / 1000).toFixed(0) + 'K+';
+            return n + '+';
+          });
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(document.getElementById('statsBar'));
+
+    // Call timer animation
+    (function(){
+      let secs = 154;
+      const el = document.getElementById('callTimer');
+      if (!el) return;
+      setInterval(() => {
+        secs++;
+        const m = Math.floor(secs / 60).toString().padStart(2,'0');
+        const s = (secs % 60).toString().padStart(2,'0');
+        el.textContent = m + ':' + s;
+      }, 1000);
+    })();
+
+    // Live call counter animation
+    (function(){
+      const el = document.querySelector('.hh-card-live .n');
+      if (!el) return;
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const target = parseInt(el.dataset.target, 10) || 0;
+      if (reduced){ el.textContent = target; return; }
+      function tickUp(duration){
+        const t0 = performance.now();
+        function frame(now){
+          const t = Math.min(1, (now - t0) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.floor(eased * target);
+          if (t < 1) requestAnimationFrame(frame);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(frame);
+      }
+      setTimeout(() => tickUp(1400), 1700);
+      setInterval(() => {
+        const cur = parseInt(el.textContent, 10);
+        const next = Math.max(35, Math.min(42, cur + (Math.random() < .5 ? -1 : 1)));
+        if (next !== cur) el.textContent = next;
+      }, 3400);
+    })();
+  </script>
+
+  <script>
+  // Pricing calculator
+  (function(){
+    var users=1, numberType='local', callRange=null;
+    function fmt(n){return n.toLocaleString('en-AU');}
+    function update(){
+      var monthly=users*25, allowance=users*1000;
+      var highVolume=callRange==='1000+';
+      document.getElementById('nc-num').textContent=users;
+      document.getElementById('nc-price').innerHTML='A$'+fmt(monthly)+'<span>/mo</span>';
+      var detail='A$25.00 per user · '+users+' user'+(users>1?'s':'')+' · '+fmt(allowance)+' minutes included';
+      if(highVolume) detail+=' · High volume — contact us for custom pricing';
+      detail+=' · No lock-in contract';
+      document.getElementById('nc-detail').textContent=detail;
+      var a=document.getElementById('nc-actions');
+      if(highVolume){
+        a.innerHTML='<a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="nc-buy">Book a demo</a>';
+      } else {
+        a.innerHTML='<a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="nc-buy">Get a quote — A$'+fmt(monthly)+'/mo</a>'+
+          '<a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="nc-demo">Book a demo</a>';
+      }
+    }
+    document.getElementById('nc-dec').onclick=function(){if(users>1){users--;update();}};
+    document.getElementById('nc-inc').onclick=function(){users++;update();};
+    document.querySelectorAll('[data-nt]').forEach(function(b){
+      b.onclick=function(){
+        document.querySelectorAll('[data-nt]').forEach(function(x){x.classList.remove('sel');});
+        b.classList.add('sel');
+        numberType=b.getAttribute('data-nt');
+        update();
+      };
+    });
+    document.querySelectorAll('[data-cr]').forEach(function(b){
+      b.onclick=function(){
+        document.querySelectorAll('[data-cr]').forEach(function(x){x.classList.remove('sel');});
+        b.classList.add('sel');
+        callRange=b.getAttribute('data-cr');
+        update();
+      };
+    });
+    update();
+  })();
+  </script>
+
+  <script>
+    // Video modal
+    const modal = document.getElementById('videoModal');
+    const videoEl = document.getElementById('heroVideo');
+    document.getElementById('openVideoModal').addEventListener('click', () => {
+      modal.classList.add('open');
+      videoEl.play();
+    });
+    document.getElementById('closeVideoModal').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    function closeModal() {
+      modal.classList.remove('open');
+      videoEl.pause();
+      videoEl.currentTime = 0;
+    }
+  </script>
+  <script src="project/assets/chat.js" defer></script>
+  <script src="project/assets/global-search.js" defer></script>
+</body>
+</html>
