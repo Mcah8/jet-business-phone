@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geographic Routing — Jet Business Phone</title>
+  <meta name="description" content="Automatically connect customers to the right office, team, or agent based on their location.">
+  <link rel="icon" href="../../project/assets/jet-symbol-gradient.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"></noscript>
+  <style>
+    :root {
+      --red:           #ED1C24;
+      --red-dark:      #A71C20;
+      --red-darker:    #7A1418;
+      --red-100:       #FDE7E8;
+      --red-50:        #FEF3F4;
+      --black:         #000;
+      --white:         #fff;
+      --ink-950:       #050506;
+      --ink-900:       #0B0B0C;
+      --ink-800:       #1A1A1E;
+      --ink-700:       #2A2A2E;
+      --ink-600:       #4A4D55;
+      --ink-500:       #6B6E76;
+      --ink-400:       #9A9DA4;
+      --ink-300:       #C9CCD1;
+      --ink-200:       #E1E4E8;
+      --ink-100:       #EEF0F3;
+      --ink-50:        #F7F8FA;
+      --fg-1:          var(--ink-900);
+      --fg-2:          var(--ink-600);
+      --fg-3:          var(--ink-500);
+      --border:        1px solid var(--ink-300);
+      --grad-logo:     linear-gradient(90deg, var(--red-dark) 0%, var(--red) 100%);
+      --font-display:  'Saira', 'Arial Narrow', system-ui, sans-serif;
+      --font-ui:       'Barlow', system-ui, -apple-system, sans-serif;
+      --fs-caption:    12px;
+      --fs-small:      14px;
+      --fs-body:       16px;
+      --fs-lead:       18px;
+      --fs-h5:         20px;
+      --fs-h4:         24px;
+      --fs-h3:         32px;
+      --fs-h2:         44px;
+      --fs-h1:         64px;
+      --fs-display:    96px;
+      --lh-tight:      1.05;
+      --lh-snug:       1.2;
+      --lh-normal:     1.5;
+      --tr-tight:      -0.02em;
+      --tr-snug:       -0.01em;
+      --tr-ultra:      0.14em;
+      --tr-wide:       0.06em;
+      --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+      --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+      --sp-9: 96px; --sp-10: 128px;
+      --radius-0:   0;
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg:  16px;
+      --radius-pill: 999px;
+      --shadow-1: 0 1px 2px rgba(11,11,12,.06), 0 1px 3px rgba(11,11,12,.08);
+      --shadow-2: 0 4px 12px rgba(11,11,12,.08), 0 2px 4px rgba(11,11,12,.06);
+      --shadow-3: 0 20px 40px rgba(11,11,12,.14), 0 8px 16px rgba(11,11,12,.08);
+      --shadow-red: 0 8px 24px rgba(237,28,36,.28);
+      --ease-out:    cubic-bezier(.2,.8,.2,1);
+      --ease-io:     cubic-bezier(.4,0,.2,1);
+      --dur-fast:    80ms;
+      --dur-base:    140ms;
+      --dur-med:     220ms;
+      --max-w: 1200px;
+      --nav-h: 72px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: var(--fs-body); -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { font-family: var(--font-ui); color: var(--fg-1); line-height: var(--lh-normal); background: var(--white); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    ::selection { background: var(--red); color: var(--white); }
+
+    /* Nav */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--white); border-bottom: var(--border); height: var(--nav-h); }
+    .nav__inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--sp-6); height: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--sp-7); }
+    .nav__logo img { height: 32px; width: auto; }
+    .nav__links { display: flex; align-items: center; gap: var(--sp-5); list-style: none; }
+    .nav__links a { text-decoration: none; color: var(--fg-1); font-weight: 500; font-size: var(--fs-body); transition: color var(--dur-base) var(--ease-out); }
+    .nav__links a:hover { color: var(--red); }
+    .nav__cta { background: var(--red); color: var(--white) !important; padding: 0.5rem 1.5rem; border-radius: var(--radius-md); font-weight: 600 !important; white-space: nowrap; transition: background var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out) !important; }
+    .nav__cta:hover { background: var(--red-dark) !important; box-shadow: var(--shadow-red); color: var(--white) !important; }
+    .nav__phone { display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--fg-1);font-weight:600;font-size:var(--fs-body);white-space:nowrap;transition:color var(--dur-base) var(--ease-out) }
+    .nav__phone:hover { color: var(--red); }
+    .nav__dropdown { position: relative; }
+    .nav__dropdown-toggle { display: flex; align-items: center; gap: 4px; cursor: pointer; background: none; border: none; color: var(--fg-1); font-weight: 500; font-size: var(--fs-body); font-family: var(--font-ui); padding: 0; transition: color var(--dur-base) var(--ease-out); }
+    .nav__dropdown-toggle:hover { color: var(--red); }
+    .nav__dropdown-toggle svg { transition: transform var(--dur-base) var(--ease-out); }
+    .nav__dropdown:hover .nav__dropdown-toggle svg { transform: rotate(180deg); }
+    .nav__dropdown-menu { display: none; position: absolute; top: 100%; margin-top: 1px; left: 50%; transform: translateX(-50%); background: var(--white); border: var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-3); min-width: 220px; overflow: hidden; z-index: 300; }
+    .nav__dropdown:hover .nav__dropdown-menu { display: block; }
+    .nav__dropdown-menu a { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); text-decoration: none; color: var(--fg-1); font-size: var(--fs-body); font-weight: 500; border-bottom: var(--border); transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out); }
+    .nav__dropdown-menu a:last-child { border-bottom: none; }
+    .nav__dropdown-menu a:hover { background: var(--ink-50); color: var(--red); }
+    .nav__dropdown-menu a svg { flex-shrink: 0; color: var(--red); }
+    .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: var(--sp-2); }
+    .nav__burger span { display: block; width: 22px; height: 2px; background: var(--fg-1); border-radius: 2px; transition: transform var(--dur-med) var(--ease-io), opacity var(--dur-med) var(--ease-io); }
+    .nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav__drawer { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; background: var(--white); z-index: 199; flex-direction: column; padding: var(--sp-5) var(--sp-6); gap: 0; border-top: var(--border); overflow-y: auto; }
+    .nav__drawer.open { display: flex; }
+    .nav__drawer a, .nav__drawer-section-label { text-decoration: none; color: var(--fg-1); font-size: var(--fs-lead); font-weight: 500; padding: var(--sp-3) 0; border-bottom: var(--border); display: block; }
+    .nav__drawer-sub { padding-left: var(--sp-5); }
+    .nav__drawer-sub a { font-size: var(--fs-body); color: var(--fg-2); font-weight: 400; }
+    .nav__drawer .nav__cta { text-align: center; padding: var(--sp-4); margin-top: var(--sp-3); border-bottom: none; }
+
+    /* Shared section styles */
+    .section { padding: var(--sp-10) var(--sp-6); }
+    .section--alt { background: var(--ink-50); }
+    .section--dark { background: var(--ink-900); color: var(--white); }
+    .section--red { background: var(--red); color: var(--white); }
+    .section__inner { max-width: var(--max-w); margin: 0 auto; }
+    .section__eyebrow { font-family: var(--font-display); font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tr-ultra); color: var(--red); margin-bottom: var(--sp-3); text-align: center; }
+    .section__headline { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 700; line-height: var(--lh-tight); letter-spacing: var(--tr-tight); text-align: center; max-width: 800px; margin: 0 auto var(--sp-8); }
+
+    /* Feature card */
+    .feature-card { background: var(--white); padding: var(--sp-6); border-radius: var(--radius-md); box-shadow: var(--shadow-1); border: var(--border); transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out); }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-3); border-color: rgba(237,28,36,0.2); }
+    .feature-card__icon { width: 52px; height: 52px; background: var(--grad-logo); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--sp-5); }
+    .feature-card h3 { font-family: var(--font-display); font-size: var(--fs-h5); font-weight: 600; letter-spacing: var(--tr-snug); margin-bottom: var(--sp-3); }
+    .feature-card p { color: var(--fg-2); font-size: var(--fs-body); margin: 0; }
+
+    /* CTA buttons */
+    .cta-group { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
+    .btn-white { background: var(--white); color: var(--red); padding: var(--sp-4) var(--sp-6); border-radius: var(--radius-md); font-weight: 700; text-decoration: none; font-size: var(--fs-lead); transition: background var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out); display: inline-block; white-space: nowrap; }
+    .btn-white:hover { background: var(--red-50); box-shadow: 0 4px 16px rgba(0,0,0,.15); }
+    .btn-secondary { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: var(--sp-4) var(--sp-6); border-radius: var(--radius-md); font-weight: 600; text-decoration: none; font-size: var(--fs-lead); transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); display: inline-block; white-space: nowrap; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.5); }
+
+    /* Final CTA */
+    .final-cta { text-align: center; }
+    .final-cta h2 { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 700; letter-spacing: var(--tr-tight); line-height: var(--lh-tight); color: var(--white); margin-bottom: var(--sp-4); }
+    .final-cta p { font-size: var(--fs-lead); color: rgba(255,255,255,0.9); margin-bottom: var(--sp-7); }
+    .final-cta .cta-group { justify-content: center; }
+
+    /* Footer */
+    footer { background: var(--ink-900); padding: var(--sp-7) var(--sp-6) var(--sp-6); }
+    .footer__inner { max-width: var(--max-w); margin: 0 auto; }
+    .footer__top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-7); flex-wrap: wrap; padding-bottom: var(--sp-6); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--sp-6); }
+    .footer__brand { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .footer__brand img { height: 28px; width: auto; max-width: 180px; object-fit: contain; }
+    .footer__brand p { color: rgba(255,255,255,0.5); font-size: var(--fs-small); max-width: 280px; }
+    .footer__cols { display: flex; gap: var(--sp-8); flex-wrap: wrap; }
+    .footer__col { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .footer__col-label { font-family: var(--font-display); font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tr-ultra); color: rgba(255,255,255,0.4); margin-bottom: var(--sp-1); }
+    .footer__col a { text-decoration: none; color: rgba(255,255,255,0.7); font-size: var(--fs-body); transition: color var(--dur-base) var(--ease-out); }
+    .footer__col a:hover { color: var(--white); }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--sp-4); }
+    .footer__copy { color: rgba(255,255,255,0.4); font-size: var(--fs-small); }
+    .footer__legal { display: flex; gap: var(--sp-5); }
+    .footer__legal a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: var(--fs-small); }
+    .footer__legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* Page hero */
+    .page-hero {
+      position: relative;
+      width: 100%;
+      padding: 120px var(--sp-6) 100px;
+      margin-top: var(--nav-h);
+      background:
+        radial-gradient(120% 80% at 80% 10%, rgba(237,28,36,.55) 0%, transparent 60%),
+        radial-gradient(80% 60% at 20% 90%, rgba(122,20,24,.85) 0%, transparent 65%),
+        linear-gradient(135deg, #5e0f12 0%, #8e1418 35%, #c41a20 75%, #ed1c24 100%);
+      overflow: hidden;
+      isolation: isolate;
+      color: #fff;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url("../../project/assets/jet-symbol-solid.png");
+      background-size: 480px; background-position: right -120px top -80px; background-repeat: no-repeat;
+      opacity: .06; mix-blend-mode: screen; z-index: 0; pointer-events: none;
+    }
+    .page-hero__inner {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+    }
+    .page-hero__eyebrow {
+      font-family: var(--font-display); font-weight: 600; font-size: 13px;
+      letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.75);
+      margin-bottom: var(--sp-5);
+      display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+    }
+    .page-hero__eyebrow a { color: rgba(255,255,255,.75); text-decoration: none; }
+    .page-hero__eyebrow a:hover { color: #fff; }
+    .page-hero h1 {
+      font-family: var(--font-display); font-weight: 700; font-size: 62px;
+      line-height: 1.0; letter-spacing: -.015em; margin: 0 0 var(--sp-5); color: #fff;
+      text-wrap: balance;
+    }
+    .page-hero__sub {
+      font-size: var(--fs-lead); line-height: 1.55; color: rgba(255,255,255,.86);
+      max-width: 640px; margin: 0 auto var(--sp-7);
+    }
+    .page-hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .ph-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 52px; padding: 0 26px;
+      font-family: var(--font-ui); font-weight: 600; font-size: 16px;
+      border-radius: 4px; border: 0; cursor: pointer; text-decoration: none;
+      transition: transform 80ms ease-out, box-shadow 120ms ease-out;
+    }
+    .ph-btn-primary { background: #fff; color: var(--red); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+    .ph-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(0,0,0,.24); }
+    .ph-btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(8px); }
+    .ph-btn-ghost:hover { background: rgba(255,255,255,.14); }
+
+    /* Intro section */
+    .page-intro { padding: var(--sp-10) var(--sp-6); }
+    .page-intro__inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .page-intro p { font-size: var(--fs-lead); line-height: 1.7; color: var(--fg-2); }
+
+    /* Benefits grid */
+    .benefits-section { padding: var(--sp-10) var(--sp-6); background: var(--ink-50); }
+    .benefits-section__inner { max-width: var(--max-w); margin: 0 auto; }
+    .benefits-section__headline { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 700; line-height: var(--lh-tight); letter-spacing: var(--tr-tight); text-align: center; margin-bottom: var(--sp-8); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--sp-5); }
+    .benefit-card { background: var(--white); padding: var(--sp-6); border-radius: var(--radius-md); box-shadow: var(--shadow-1); border: var(--border); }
+    .benefit-card__label { font-family: var(--font-display); font-size: var(--fs-h5); font-weight: 600; letter-spacing: var(--tr-snug); color: var(--ink-900); margin-bottom: var(--sp-3); display: flex; align-items: flex-start; gap: var(--sp-3); }
+    .benefit-card__label::before { content: ""; display: inline-block; width: 20px; height: 20px; background: var(--grad-logo); border-radius: 50%; flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-color: var(--red); background-size: 12px; background-position: center; background-repeat: no-repeat; }
+    .benefit-card p { color: var(--fg-2); font-size: var(--fs-body); line-height: var(--lh-normal); margin: 0; }
+
+    /* Number types section (inbound-numbers page) */
+    .number-types { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sp-5); margin-bottom: var(--sp-8); }
+    .number-type-card { background: var(--white); border: var(--border); border-radius: var(--radius-md); padding: var(--sp-6); box-shadow: var(--shadow-1); }
+    .number-type-card__name { font-family: var(--font-display); font-size: var(--fs-h4); font-weight: 700; color: var(--red); margin-bottom: var(--sp-3); }
+    .number-type-card h3 { font-family: var(--font-display); font-size: var(--fs-h5); font-weight: 600; margin-bottom: var(--sp-3); }
+    .number-type-card p { color: var(--fg-2); font-size: var(--fs-body); margin-bottom: var(--sp-4); }
+    .number-type-card ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-2); }
+    .number-type-card ul li { font-size: var(--fs-small); color: var(--fg-2); padding-left: var(--sp-4); position: relative; }
+    .number-type-card ul li::before { content: "—"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav__links { display: none; }
+      .nav__burger { display: flex; }
+      .page-hero h1 { font-size: 44px; }
+      .benefits-section__headline { font-size: var(--fs-h4); }
+      .number-types { grid-template-columns: 1fr; }
+      .section { padding: var(--sp-8) var(--sp-5); }
+      .page-hero { padding: 80px var(--sp-5) 72px; }
+      .page-intro { padding: var(--sp-8) var(--sp-5); }
+      .benefits-section { padding: var(--sp-8) var(--sp-5); }
+    }
+    @media (max-width: 560px) {
+      :root { --sp-6: 20px; }
+      .page-hero__ctas, .cta-group { flex-direction: column; align-items: center; }
+      .footer__top { flex-direction: column; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+      .page-hero h1 { font-size: 36px; }
+    }
+</style>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WSH8LKXT');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSH8LKXT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <nav class="nav" role="navigation" aria-label="Primary">
+    <div class="nav__inner">
+      <a href="../../" class="nav__logo" aria-label="Jet Interactive home"><img src="../../project/assets/jet-logo-full-color.png" alt="Jet Interactive" width="1200" height="434"></a>
+      <a href="tel:0488811729" class="nav__phone">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.3 13.38a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2.5h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+        0488 811 729
+      </a>
+      <ul class="nav__links" role="list">
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true">Solutions<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav__dropdown-menu" role="menu">
+            <a href="../../solutions/sales-teams"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Sales Teams</a>
+            <a href="../../solutions/customer-service"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.3 13.38a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2.5h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>Customer Service</a>
+            <a href="../../solutions/multi-location"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Multi-Location Business</a>
+            <a href="../../solutions/small-business"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Small Business</a>
+          </div>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true">Industries<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav__dropdown-menu" role="menu">
+            <a href="../../industries/automotive"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Automotive</a>
+            <a href="../../industries/real-estate"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Real Estate</a>
+            <a href="../../industries/professional-services"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Professional Services</a>
+            <a href="../../industries/healthcare"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Healthcare</a>
+          </div>
+        </li>
+        <li><a href="../../features">Features</a></li>
+        <li><a href="../../pricing">Pricing</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__dropdown-toggle" aria-haspopup="true">Resources<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav__dropdown-menu" role="menu">
+            <a href="../../faq"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>FAQ</a>
+            <a href="../../articles"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Articles</a>
+            <a href="../../downloads"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Downloads</a>
+            <a href="../../videos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Videos</a>
+            <a href="../../knowledgebase"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Knowledgebase</a>
+          </div>
+        </li>
+        <li><div style="width:1px;height:20px;background:var(--ink-200)"></div></li>
+        <li><a href="../../contact">Contact</a></li>
+        <li><a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="nav__cta">Get a quote</a></li>
+      </ul>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__drawer" id="navDrawer" aria-hidden="true">
+      <span class="nav__drawer-section-label">Solutions</span>
+      <div class="nav__drawer-sub">
+        <a href="../../solutions/sales-teams">Sales Teams</a>
+        <a href="../../solutions/customer-service">Customer Service</a>
+        <a href="../../solutions/multi-location">Multi-Location Business</a>
+        <a href="../../solutions/small-business">Small Business</a>
+      </div>
+      <span class="nav__drawer-section-label">Industries</span>
+      <div class="nav__drawer-sub">
+        <a href="../../industries/automotive">Automotive</a>
+        <a href="../../industries/real-estate">Real Estate</a>
+        <a href="../../industries/professional-services">Professional Services</a>
+        <a href="../../industries/healthcare">Healthcare</a>
+      </div>
+      <a href="../../features">Features</a>
+      <a href="../../pricing">Pricing</a>
+      <span class="nav__drawer-section-label">Resources</span>
+      <div class="nav__drawer-sub">
+        <a href="../../faq">FAQ</a>
+        <a href="../../articles">Articles</a>
+        <a href="../../downloads">Downloads</a>
+        <a href="../../videos">Videos</a>
+        <a href="../../knowledgebase">Knowledgebase</a>
+      </div>
+      <a href="../../contact">Contact</a>
+      <a href="tel:0488811729" class="nav__phone" style="padding:var(--sp-3) 0;border-bottom:var(--border);font-size:var(--fs-lead)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.3 13.38a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.18 2.5h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+        0488 811 729
+      </a>
+      <a href="https://signup.jetinteractive.com.au/business-phone" target="_blank" rel="noopener" class="nav__cta">Get a quote</a>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero__inner">
+      <div class="page-hero__eyebrow">
+        <a href="../../features">Features</a>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        Geographic Routing
+      </div>
+      <h1>Route callers based on where they're calling from.</h1>
+      <p class="page-hero__sub">Automatically connect customers to the right office, team, or agent based on their location.</p>
+      <div class="page-hero__ctas">
+        <a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="ph-btn ph-btn-primary">Book a Demo</a>
+        <a href="../../contact" class="ph-btn ph-btn-ghost">Talk to Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="page-intro">
+    <div class="page-intro__inner">
+      <p>Geographic Routing uses the caller's location — determined by their number or area code — to direct them to the most relevant part of your business. If you operate across multiple states or cities, customers calling from Sydney go to your Sydney team, Melbourne callers go to Melbourne. No menu, no friction.</p>
+    </div>
+  </section>
+
+
+  <section class="benefits-section">
+    <div class="benefits-section__inner">
+      <h2 class="benefits-section__headline">Key Benefits</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-card__label">Seamless local experience</div>
+          <p>Callers reach the team closest to them without having to navigate a menu or explain where they are.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__label">Multi-location businesses made simple</div>
+          <p>One national number, automatically routed to the right site.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__label">Reduces transfer rates</div>
+          <p>When callers land in the right place first time, internal transfers drop significantly.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__label">Supports national 1300/1800 numbers</div>
+          <p>Works with your existing 1300 or 1800 number so you keep a single public-facing contact number.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__label">Fully configurable</div>
+          <p>Define routing logic by state, region, or specific area codes to match how your business is structured.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--red final-cta">
+    <div class="section__inner">
+      <h2>Serve every location better.</h2>
+      <p>Talk to us about setting up Geographic Routing across your business.</p>
+      <div class="cta-group">
+        <a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="btn-white">Book a Demo</a>
+        <a href="../../contact" class="btn-secondary">Talk to Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <img src="../../project/assets/jet-logo-full-color.png" alt="Jet Interactive" width="1200" height="434">
+          <p>Australia's largest privately owned cloud communications network, purpose-built for business.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <span class="footer__col-label">Solutions</span>
+            <a href="../../solutions/sales-teams">Sales Teams</a>
+            <a href="../../solutions/customer-service">Customer Service</a>
+            <a href="../../solutions/multi-location">Multi-Location</a>
+            <a href="../../solutions/small-business">Small Business</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-label">Industries</span>
+            <a href="../../industries/automotive">Automotive</a>
+            <a href="../../industries/real-estate">Real Estate</a>
+            <a href="../../industries/professional-services">Professional Services</a>
+            <a href="../../industries/healthcare">Healthcare</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-label">Resources</span>
+            <a href="../../features">Features</a>
+            <a href="../../pricing">Pricing</a>
+            <a href="../../faq">FAQ</a>
+            <a href="../../articles">Articles</a>
+            <a href="../../knowledgebase">Knowledgebase</a>
+            <a href="../../contact">Contact</a>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-label">Legal</span>
+            <a href="../../Jet-Business-Phone-Critical-Information-Summary.pdf" target="_blank" rel="noopener">Business Phone CIS</a>
+            <a href="../../Privacy-Policy-Jet-Interactive-V2.0.pdf" target="_blank" rel="noopener">Privacy Policy</a>
+            <a href="../../Service-Level-Agreement-Jet-Interactive-V2.0.pdf" target="_blank" rel="noopener">SLA</a>
+            <a href="../../Master-Service-Agreement-Jet-Interactive-V3.0.pdf" target="_blank" rel="noopener">Master Services Agreement</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 Jet Interactive Pty Ltd. All rights reserved. ABN 70 168 999 371.</p>
+        <div class="footer__legal">
+          <a href="../../Privacy-Policy-Jet-Interactive-V2.0.pdf">Privacy</a>
+          <a href="../../Master-Service-Agreement-Jet-Interactive-V3.0.pdf">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const burger = document.getElementById('navBurger');
+    const drawer = document.getElementById('navDrawer');
+    burger.addEventListener('click', () => {
+      const open = burger.classList.toggle('open');
+      drawer.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      drawer.setAttribute('aria-hidden', String(!open));
+    });
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        drawer.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+      });
+    });
+  </script>
+</body>
+</html>
