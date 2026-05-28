@@ -169,7 +169,7 @@
     .page-hero {
       position: relative;
       width: 100%;
-      padding: 120px var(--sp-6) 100px;
+      padding: 100px var(--sp-6) 100px;
       margin-top: var(--nav-h);
       background:
         radial-gradient(120% 80% at 80% 10%, rgba(237,28,36,.55) 0%, transparent 60%),
@@ -178,7 +178,6 @@
       overflow: hidden;
       isolation: isolate;
       color: #fff;
-      text-align: center;
     }
     .page-hero::before {
       content: "";
@@ -189,26 +188,31 @@
     }
     .page-hero__inner {
       position: relative; z-index: 1;
-      max-width: 860px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: center;
     }
+    .page-hero__copy { display: flex; flex-direction: column; }
+    .page-hero__visual { display: flex; align-items: center; justify-content: center; }
+    .page-hero__visual svg { width: 100%; max-width: 440px; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,.25)); }
     .page-hero__eyebrow {
       font-family: var(--font-display); font-weight: 600; font-size: 13px;
       letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.75);
       margin-bottom: var(--sp-5);
-      display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+      display: flex; align-items: center; gap: var(--sp-2);
     }
     .page-hero__eyebrow a { color: rgba(255,255,255,.75); text-decoration: none; }
     .page-hero__eyebrow a:hover { color: #fff; }
     .page-hero h1 {
-      font-family: var(--font-display); font-weight: 700; font-size: 62px;
+      font-family: var(--font-display); font-weight: 700; font-size: 56px;
       line-height: 1.0; letter-spacing: -.015em; margin: 0 0 var(--sp-5); color: #fff;
       text-wrap: balance;
     }
     .page-hero__sub {
       font-size: var(--fs-lead); line-height: 1.55; color: rgba(255,255,255,.86);
-      max-width: 640px; margin: 0 auto var(--sp-7);
+      margin: 0 0 var(--sp-7);
     }
-    .page-hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .page-hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; }
     .ph-btn {
       display: inline-flex; align-items: center; justify-content: center;
       height: 52px; padding: 0 26px;
@@ -250,7 +254,9 @@
     @media (max-width: 900px) {
       .nav__links { display: none; }
       .nav__burger { display: flex; }
-      .page-hero h1 { font-size: 44px; }
+      .page-hero__inner { grid-template-columns: 1fr; gap: var(--sp-7); }
+      .page-hero__visual { display: none; }
+      .page-hero h1 { font-size: 42px; }
       .benefits-section__headline { font-size: var(--fs-h4); }
       .number-types { grid-template-columns: 1fr; }
       .section { padding: var(--sp-8) var(--sp-5); }
@@ -260,10 +266,10 @@
     }
     @media (max-width: 560px) {
       :root { --sp-6: 20px; }
-      .page-hero__ctas, .cta-group { flex-direction: column; align-items: center; }
+      .page-hero__ctas, .cta-group { flex-direction: column; align-items: flex-start; }
       .footer__top { flex-direction: column; }
       .footer__bottom { flex-direction: column; align-items: flex-start; }
-      .page-hero h1 { font-size: 36px; }
+      .page-hero h1 { font-size: 34px; }
     }
 </style>
   <!-- Google Tag Manager -->
@@ -391,16 +397,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="page-hero__inner">
+      <div class="page-hero__copy">
       <div class="page-hero__eyebrow">
         <a href="../../features">Features</a>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         Geographic Routing
       </div>
-      <h1>Route callers based on where they're calling from.</h1>
-      <p class="page-hero__sub">Automatically connect customers to the right office, team, or agent based on their location.</p>
-      <div class="page-hero__ctas">
-        <a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="ph-btn ph-btn-primary">Book a Demo</a>
-        <a href="../../contact" class="ph-btn ph-btn-ghost">Talk to Sales</a>
+        <h1>Route callers based on where they're calling from.</h1>
+        <p class="page-hero__sub">Automatically connect customers to the right office, team, or agent based on their location.</p>
+        <div class="page-hero__ctas">
+          <a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="ph-btn ph-btn-primary">Book a Demo</a>
+          <a href="../../contact" class="ph-btn ph-btn-ghost">Talk to Sales</a>
+        </div>
+      </div>
+      <div class="page-hero__visual" aria-hidden="true">
+        <svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="140" rx="160" ry="115" fill="rgba(255,255,255,.05)"/>
+  <path d="M200 40 C280 40 340 90 340 150 C340 210 280 260 200 260 C120 260 60 210 60 150 C60 90 120 40 200 40Z" stroke="rgba(255,255,255,.3)" stroke-width="1.5" fill="rgba(255,255,255,.06)"/>
+  <path d="M60 150 L340 150" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+  <path d="M120 60 C100 100 100 200 120 240" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+  <path d="M200 40 L200 260" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+  <path d="M280 60 C300 100 300 200 280 240" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+  <circle cx="148" cy="108" r="10" fill="#ED1C24" opacity=".9"/>
+  <line x1="148" y1="118" x2="148" y2="128" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+  <circle cx="148" cy="135" r="6" fill="rgba(255,255,255,.2)" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+  <circle cx="256" cy="124" r="10" fill="#ED1C24" opacity=".9"/>
+  <line x1="256" y1="134" x2="256" y2="144" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+  <circle cx="256" cy="151" r="6" fill="rgba(255,255,255,.2)" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+  <circle cx="180" cy="175" r="10" fill="#ED1C24" opacity=".9"/>
+  <line x1="180" y1="185" x2="180" y2="195" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+  <circle cx="180" cy="202" r="6" fill="rgba(255,255,255,.2)" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+  <circle cx="230" cy="90" r="10" fill="rgba(255,255,255,.25)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+  <line x1="148" y1="108" x2="226" y2="94" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="256" y1="124" x2="234" y2="96" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="180" y1="175" x2="228" y2="98" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+</svg>
       </div>
     </div>
   </section>

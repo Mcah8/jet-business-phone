@@ -169,7 +169,7 @@
     .page-hero {
       position: relative;
       width: 100%;
-      padding: 120px var(--sp-6) 100px;
+      padding: 100px var(--sp-6) 100px;
       margin-top: var(--nav-h);
       background:
         radial-gradient(120% 80% at 80% 10%, rgba(237,28,36,.55) 0%, transparent 60%),
@@ -178,7 +178,6 @@
       overflow: hidden;
       isolation: isolate;
       color: #fff;
-      text-align: center;
     }
     .page-hero::before {
       content: "";
@@ -189,26 +188,31 @@
     }
     .page-hero__inner {
       position: relative; z-index: 1;
-      max-width: 860px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: center;
     }
+    .page-hero__copy { display: flex; flex-direction: column; }
+    .page-hero__visual { display: flex; align-items: center; justify-content: center; }
+    .page-hero__visual svg { width: 100%; max-width: 440px; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,.25)); }
     .page-hero__eyebrow {
       font-family: var(--font-display); font-weight: 600; font-size: 13px;
       letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.75);
       margin-bottom: var(--sp-5);
-      display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+      display: flex; align-items: center; gap: var(--sp-2);
     }
     .page-hero__eyebrow a { color: rgba(255,255,255,.75); text-decoration: none; }
     .page-hero__eyebrow a:hover { color: #fff; }
     .page-hero h1 {
-      font-family: var(--font-display); font-weight: 700; font-size: 62px;
+      font-family: var(--font-display); font-weight: 700; font-size: 56px;
       line-height: 1.0; letter-spacing: -.015em; margin: 0 0 var(--sp-5); color: #fff;
       text-wrap: balance;
     }
     .page-hero__sub {
       font-size: var(--fs-lead); line-height: 1.55; color: rgba(255,255,255,.86);
-      max-width: 640px; margin: 0 auto var(--sp-7);
+      margin: 0 0 var(--sp-7);
     }
-    .page-hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .page-hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; }
     .ph-btn {
       display: inline-flex; align-items: center; justify-content: center;
       height: 52px; padding: 0 26px;
@@ -250,7 +254,9 @@
     @media (max-width: 900px) {
       .nav__links { display: none; }
       .nav__burger { display: flex; }
-      .page-hero h1 { font-size: 44px; }
+      .page-hero__inner { grid-template-columns: 1fr; gap: var(--sp-7); }
+      .page-hero__visual { display: none; }
+      .page-hero h1 { font-size: 42px; }
       .benefits-section__headline { font-size: var(--fs-h4); }
       .number-types { grid-template-columns: 1fr; }
       .section { padding: var(--sp-8) var(--sp-5); }
@@ -260,10 +266,10 @@
     }
     @media (max-width: 560px) {
       :root { --sp-6: 20px; }
-      .page-hero__ctas, .cta-group { flex-direction: column; align-items: center; }
+      .page-hero__ctas, .cta-group { flex-direction: column; align-items: flex-start; }
       .footer__top { flex-direction: column; }
       .footer__bottom { flex-direction: column; align-items: flex-start; }
-      .page-hero h1 { font-size: 36px; }
+      .page-hero h1 { font-size: 34px; }
     }
 </style>
   <!-- Google Tag Manager -->
@@ -391,16 +397,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="page-hero__inner">
+      <div class="page-hero__copy">
       <div class="page-hero__eyebrow">
         <a href="../../solutions">Solutions</a>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         Multi-Location Businesses
       </div>
-      <h1>One phone system across every location you operate.</h1>
-      <p class="page-hero__sub">Connect multiple sites under a single, centrally managed phone infrastructure — without the complexity of running separate systems.</p>
-      <div class="page-hero__ctas">
-        <a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="ph-btn ph-btn-primary">Book a Demo</a>
-        <a href="../../contact" class="ph-btn ph-btn-ghost">Talk to Sales</a>
+        <h1>One phone system across every location you operate.</h1>
+        <p class="page-hero__sub">Connect multiple sites under a single, centrally managed phone infrastructure — without the complexity of running separate systems.</p>
+        <div class="page-hero__ctas">
+          <a href="https://calendly.com/d/dn9-czx-557/book-a-demo" target="_blank" rel="noopener" class="ph-btn ph-btn-primary">Book a Demo</a>
+          <a href="../../contact" class="ph-btn ph-btn-ghost">Talk to Sales</a>
+        </div>
+      </div>
+      <div class="page-hero__visual" aria-hidden="true">
+        <svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="100" fill="rgba(255,255,255,.05)"/>
+  <circle cx="200" cy="140" r="28" fill="#ED1C24" opacity=".85" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+  <path d="M192 132c4-2 8-2 12 0l2 2a4 4 0 010 5l-1 1 4 4 1-1a4 4 0 015 0l2 2a4 4 0 010 5c-4 5-12 4-17-1s-6-13-1-17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="80" cy="80" r="20" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+  <circle cx="80" cy="80" r="8" fill="rgba(255,255,255,.3)"/>
+  <line x1="80" y1="68" x2="80" y2="76" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+  <circle cx="80" cy="100" r="5" fill="rgba(255,255,255,.3)"/>
+  <circle cx="320" cy="80" r="20" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+  <circle cx="320" cy="80" r="8" fill="rgba(255,255,255,.3)"/>
+  <line x1="320" y1="68" x2="320" y2="76" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+  <circle cx="320" cy="100" r="5" fill="rgba(255,255,255,.3)"/>
+  <circle cx="80" cy="210" r="20" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+  <circle cx="80" cy="210" r="8" fill="rgba(255,255,255,.3)"/>
+  <line x1="80" y1="198" x2="80" y2="206" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+  <circle cx="80" cy="230" r="5" fill="rgba(255,255,255,.3)"/>
+  <circle cx="320" cy="210" r="20" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+  <circle cx="320" cy="210" r="8" fill="rgba(255,255,255,.3)"/>
+  <line x1="320" y1="198" x2="320" y2="206" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+  <circle cx="320" cy="230" r="5" fill="rgba(255,255,255,.3)"/>
+  <line x1="98" y1="88" x2="174" y2="128" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="302" y1="88" x2="226" y2="128" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="98" y1="202" x2="174" y2="152" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="302" y1="202" x2="226" y2="152" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
+</svg>
       </div>
     </div>
   </section>
