@@ -360,7 +360,7 @@
   .hh-btn-ghost:hover{background:rgba(255,255,255,.14)}
   @keyframes hh-fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ── Hero composition: desk phone ───────────────────────── */
+  /* composition */
   .hh-composition{position:relative;width:100%;aspect-ratio:12/10;perspective:1800px}
   .hh-composition::before{
     content:"";position:absolute;inset:0;
@@ -368,92 +368,173 @@
     filter:blur(8px);z-index:0;
   }
 
-  /* Desk phone base unit — wider/shorter than mobile phone */
-  .hh-phone{
-    position:absolute;left:50%;top:50%;
-    width:340px;height:480px;transform-style:preserve-3d;
-    border-radius:18px;
-    background:linear-gradient(160deg,#232328 0%,#131315 100%);
-    padding:10px;
-    box-shadow:0 40px 80px rgba(0,0,0,.55),0 12px 30px rgba(0,0,0,.4),inset 0 0 0 1.5px rgba(255,255,255,.08),inset 0 0 0 3px rgba(0,0,0,.6);
-    z-index:2;opacity:0;
-    transform:translate(-50%,-50%) rotateY(-8deg) rotateX(4deg) rotateZ(-1.5deg) scale(.94);
-    animation:hh-phoneIn 1s .2s cubic-bezier(.2,.8,.2,1) forwards;
+  /* laptop */
+  .hh-laptop{
+    position:absolute;left:34%;top:50%;
+    transform-style:preserve-3d;z-index:2;opacity:0;
+    transform:translate(-50%,-50%) rotateY(-12deg) rotateX(6deg) rotateZ(-2deg) scale(.80);
+    animation:hh-laptopIn 1s .2s cubic-bezier(.2,.8,.2,1) forwards;
   }
-  @keyframes hh-phoneIn{to{opacity:1;transform:translate(-50%,-50%) rotateY(-8deg) rotateX(4deg) rotateZ(-1.5deg) scale(1)}}
+  @keyframes hh-laptopIn{to{opacity:1;transform:translate(-50%,-50%) rotateY(-12deg) rotateX(6deg) rotateZ(-2deg) scale(.85)}}
+  .hh-lid{
+    width:530px;
+    background:linear-gradient(160deg,#3a3a3f 0%,#1c1c1f 100%);
+    border-radius:12px 12px 2px 2px;
+    padding:8px 8px 4px;
+    box-shadow:0 30px 70px rgba(0,0,0,.55),0 8px 20px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.1);
+    position:relative;
+  }
+  .hh-lid-cam{
+    position:absolute;top:3px;left:50%;transform:translateX(-50%);
+    width:5px;height:5px;border-radius:50%;
+    background:#2a2a2f;border:1px solid rgba(255,255,255,.12);
+  }
+  .hh-lid-screen{
+    width:100%;border-radius:6px;overflow:hidden;
+    background:#F2F3F5;display:flex;flex-direction:column;
+    color:var(--ink-900,#0B0B0C);font-family:var(--font-ui);
+  }
+  .hh-win-chrome{
+    display:flex;align-items:center;gap:5px;
+    padding:7px 10px;background:#E8E8E8;border-bottom:1px solid #D0D0D0;flex-shrink:0;
+  }
+  .hh-wc-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .hh-wc-dot.r{background:#FF5F57}.hh-wc-dot.y{background:#FEBC2E}.hh-wc-dot.g{background:#28C840}
+  .hh-wc-title{
+    flex:1;text-align:center;font-size:10px;font-weight:600;
+    font-family:var(--font-display);color:#3a3a3f;letter-spacing:-.01em;
+  }
+  .hh-base{
+    width:550px;height:18px;margin-left:-10px;
+    background:linear-gradient(180deg,#4a4a4f 0%,#2e2e33 60%,#1a1a1e 100%);
+    border-radius:0 0 8px 8px;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+    position:relative;overflow:hidden;
+  }
+  .hh-base::before{
+    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:60px;height:3px;border-radius:0 0 4px 4px;background:rgba(0,0,0,.4);
+  }
+  .hh-base::after{
+    content:"";position:absolute;top:0;left:10px;right:10px;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+  }
 
-  /* Left side light strip (like a physical phone edge) */
+  /* mobile phone alongside laptop */
+  .hh-phone{
+    position:absolute;left:122%;top:50%;
+    width:228px;height:508px;transform-style:preserve-3d;
+    border-radius:44px;background:linear-gradient(180deg,#1a1a1e 0%,#050506 100%);
+    padding:7px;
+    box-shadow:0 30px 60px rgba(0,0,0,.55),0 10px 24px rgba(0,0,0,.4),
+               inset 0 0 0 1.5px rgba(255,255,255,.08),inset 0 0 0 3px rgba(0,0,0,.6);
+    z-index:4;opacity:0;
+    transform:translate(-50%,-50%) rotateY(-4deg) rotateX(5deg) rotateZ(4deg) scale(.94);
+    animation:hh-phoneIn 1s .45s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes hh-phoneIn{to{opacity:1;transform:translate(-50%,-50%) rotateY(-4deg) rotateX(5deg) rotateZ(4deg) scale(1)}}
   .hh-phone::before{
-    content:"";position:absolute;left:-2px;top:60px;bottom:60px;width:2px;
+    content:"";position:absolute;right:-2px;top:70px;bottom:70px;width:2px;
     background:linear-gradient(180deg,transparent,rgba(255,255,255,.35),transparent);border-radius:2px;
   }
-
-  /* ── Desk phone screen ──────────────────────────────────── */
   .hh-screen{
-    position:relative;width:100%;height:100%;border-radius:10px;
-    background:linear-gradient(180deg,#0d1117 0%,#0a0c10 100%);
-    overflow:hidden;color:#fff;font-family:var(--font-ui);
+    position:relative;width:100%;height:100%;border-radius:38px;
+    background:
+      radial-gradient(75% 42% at 50% 27%, rgba(237,28,36,.10) 0%, transparent 62%),
+      linear-gradient(180deg,#FFFFFF 0%,#F2F3F6 100%);
+    overflow:hidden;color:#0B0B0C;font-family:var(--font-ui);
     display:flex;flex-direction:column;
   }
-
-  /* Top status bar */
-  .hh-dp-statusbar{
+  .hh-notch{position:absolute;left:50%;top:7px;transform:translateX(-50%);width:92px;height:23px;background:#000;border-radius:14px;z-index:3}
+  /* incoming call screen */
+  .hh-ic-status{
     display:flex;justify-content:space-between;align-items:center;
-    padding:10px 14px 6px;
-    background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);
+    padding:13px 22px 0;font-size:11px;font-weight:600;color:#0B0B0C;flex-shrink:0;
   }
-  .hh-dp-statusbar .brand{font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55)}
-  .hh-dp-statusbar .time{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);font-family:monospace}
-
-  /* Line indicators */
-  .hh-dp-lines{display:flex;gap:6px;padding:8px 14px 0}
-  .hh-dp-line{
-    flex:1;padding:5px 8px;border-radius:6px;font-size:9px;font-weight:600;
-    letter-spacing:.06em;text-transform:uppercase;
-    display:flex;align-items:center;gap:5px;
+  .hh-ic-status .r{display:flex;gap:5px;align-items:center}
+  .hh-ic-topbar{display:flex;align-items:center;gap:8px;padding:12px 16px 4px;flex-shrink:0}
+  .hh-ic-logo-sq{
+    width:24px;height:24px;border-radius:7px;background:#ED1C24;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
-  .hh-dp-line.active{background:rgba(38,217,122,.12);border:1px solid rgba(38,217,122,.25);color:#26d97a}
-  .hh-dp-line.idle{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
-  .hh-dp-line .dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:hh-livePulse2 1.4s infinite}
-  .hh-dp-line.idle .dot{animation:none;background:rgba(255,255,255,.2)}
-  @keyframes hh-livePulse2{0%{box-shadow:0 0 0 0 rgba(38,217,122,.6)}70%{box-shadow:0 0 0 5px rgba(38,217,122,0)}100%{box-shadow:0 0 0 0 rgba(38,217,122,0)}}
-
-  /* Active call display */
-  .hh-dp-call{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 14px;gap:6px}
-  .hh-dp-call-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;background:rgba(38,217,122,.15);border:1px solid rgba(38,217,122,.3);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#26d97a;margin-bottom:4px}
-  .hh-dp-call-badge .dot{width:5px;height:5px;border-radius:50%;background:#26d97a;animation:hh-livePulse2 1.2s infinite}
-  .hh-dp-call-via{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
-  .hh-dp-call-num{font-family:var(--font-display);font-size:13px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.04em;margin-bottom:6px}
-  .hh-dp-call-contact{font-family:var(--font-display);font-size:22px;font-weight:700;color:#fff;letter-spacing:-.01em;text-align:center;line-height:1.1}
-  .hh-dp-call-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px}
-  .hh-dp-timer{font-family:monospace;font-size:26px;font-weight:700;color:#26d97a;letter-spacing:.06em;margin:8px 0}
-  @keyframes hh-timerBlink{50%{opacity:.7}}
-
-  /* Call control buttons */
-  .hh-dp-controls{display:flex;justify-content:center;gap:8px;padding:0 10px 6px}
-  .hh-dp-ctrl{
-    flex:1;max-width:64px;aspect-ratio:1;border-radius:10px;
-    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  .hh-ic-logo-sq svg{width:11px;height:11px;color:#fff}
+  .hh-ic-appname{
+    font-family:var(--font-display);font-weight:700;font-size:12px;
+    color:#1a1a1e;letter-spacing:.12em;text-transform:uppercase;flex:1;
   }
-  .hh-dp-ctrl svg{width:14px;height:14px;color:rgba(255,255,255,.65)}
-  .hh-dp-ctrl span{font-size:8px;color:rgba(255,255,255,.4);font-weight:500;letter-spacing:.04em}
-  .hh-dp-ctrl.active-ctrl{background:rgba(237,28,36,.18);border-color:rgba(237,28,36,.3)}
-  .hh-dp-ctrl.active-ctrl svg{color:#ED1C24}
-
-  /* Keypad area */
-  .hh-dp-keypad{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:6px 10px 8px}
-  .hh-dp-key{
-    aspect-ratio:1;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    font-family:var(--font-display);font-size:13px;font-weight:600;color:rgba(255,255,255,.7);gap:1px;
+  .hh-ic-biz{
+    background:rgba(38,192,106,.12);border:1px solid rgba(38,192,106,.45);
+    border-radius:999px;padding:3px 8px;
+    font-size:7.5px;font-weight:700;color:#138A47;
+    letter-spacing:.1em;text-transform:uppercase;
+    display:flex;align-items:center;gap:4px;
   }
-  .hh-dp-key .sub{font-size:7px;color:rgba(255,255,255,.25);letter-spacing:.05em;font-family:var(--font-ui);font-weight:500}
-  .hh-dp-key.fn{background:rgba(237,28,36,.15);border-color:rgba(237,28,36,.2);color:#ED1C24;font-size:9px}
-  .hh-dp-key.nav{background:rgba(255,255,255,.04);color:rgba(255,255,255,.3);font-size:10px}
+  .hh-ic-biz::before{
+    content:"";width:4px;height:4px;background:#1FB562;border-radius:50%;
+    box-shadow:0 0 5px rgba(31,181,98,.6);animation:hh-dotBlink 1.6s infinite;
+  }
+  .hh-ic-incoming{
+    text-align:center;font-family:var(--font-display);font-weight:700;
+    font-size:8px;letter-spacing:.24em;text-transform:uppercase;
+    color:#ED1C24;padding:4px 14px 10px;flex-shrink:0;
+  }
+  .hh-ic-avatar-wrap{display:flex;justify-content:center;padding:2px 0 8px;flex-shrink:0}
+  .hh-ic-avatar{
+    width:88px;height:88px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%,#f25a5a 0%,#d11820 52%,#8a0c12 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-weight:700;font-size:28px;color:#fff;
+    box-shadow:0 0 0 6px rgba(237,28,36,.12),0 0 0 13px rgba(237,28,36,.06),0 10px 30px rgba(237,28,36,.32);
+  }
+  .hh-ic-name{
+    text-align:center;font-family:var(--font-display);font-weight:700;
+    font-size:19px;color:#0B0B0C;letter-spacing:-.01em;padding:0 14px 4px;flex-shrink:0;
+  }
+  .hh-ic-num{
+    text-align:center;font-size:11px;color:#6B6E76;
+    font-family:monospace;letter-spacing:.05em;padding:0 14px 12px;flex-shrink:0;
+  }
+  .hh-ic-card{
+    margin:0 14px 8px;border-radius:13px;
+    background:#F3F4F6;border:1px solid #E5E7EB;
+    padding:10px 13px;display:flex;flex-direction:column;gap:8px;flex-shrink:0;
+  }
+  .hh-ic-match{
+    align-self:flex-start;
+    background:rgba(38,192,106,.12);border:1px solid rgba(38,192,106,.35);
+    border-radius:999px;padding:3px 9px;display:flex;align-items:center;gap:5px;
+  }
+  .hh-ic-match svg{width:9px;height:9px;color:#138A47;flex-shrink:0}
+  .hh-ic-match span{
+    font-family:var(--font-display);font-weight:700;font-size:8px;
+    color:#138A47;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .hh-ic-card-div{height:1px;background:rgba(0,0,0,.08);margin:0 -1px}
+  .hh-ic-crm-row{display:flex;align-items:center;gap:8px;font-size:10px}
+  .hh-ic-crm-row svg{width:12px;height:12px;color:#9A9DA4;flex-shrink:0}
+  .hh-ic-crm-lbl{color:#6B6E76;flex:1;font-family:var(--font-ui)}
+  .hh-ic-crm-val{color:#0B0B0C;font-weight:600;font-family:var(--font-display);font-size:10px}
+  .hh-ic-crm-val.green{color:#138A47}
+  .hh-ic-btns{
+    display:flex;justify-content:space-evenly;align-items:flex-start;
+    padding:2px 12px 8px;flex-shrink:0;margin-top:auto;
+  }
+  .hh-ic-btn{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .hh-ic-btn-c{
+    width:52px;height:52px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hh-ic-btn-c.decline{background:#ED1C24;box-shadow:0 5px 16px rgba(237,28,36,.4)}
+  .hh-ic-btn-c.fwd{background:#E8E9EC;border:1px solid #DCDDE1}
+  .hh-ic-btn-c.answer{background:#26C06A;box-shadow:0 5px 16px rgba(38,192,106,.45)}
+  .hh-ic-btn-c svg{width:22px;height:22px;color:#fff}
+  .hh-ic-btn-c.fwd svg{color:#4A4D55}
+  .hh-ic-btn-lbl{font-size:9px;color:#6B6E76;font-weight:500}
+  @keyframes hh-dotBlink{0%,100%{opacity:1}50%{opacity:.4}}
 
   /* satellite cards */
   .hh-card{
+    display:none;
     position:absolute;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);
     backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
     border-radius:14px;color:#fff;
@@ -462,8 +543,6 @@
   }
   .hh-card .ck-label{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;font-family:var(--font-display);display:flex;align-items:center;gap:6px}
   .hh-card .ck-label .lr{width:6px;height:6px;border-radius:50%;background:var(--red,#ED1C24);box-shadow:0 0 6px var(--red,#ED1C24)}
-
-  /* Card 1: Live reporting (top-left) */
   .hh-card-reporting{top:6%;left:-4%;width:230px;padding:14px 16px;transform:translate(-30px,-20px) rotate(-3deg) scale(.92);animation:hh-cardIn1 .8s .6s cubic-bezier(.2,.8,.2,1) forwards}
   @keyframes hh-cardIn1{to{opacity:1;transform:translate(0,0) rotate(-3deg) scale(1)}}
   .hh-card-reporting .ck-label{margin-bottom:10px}
@@ -481,8 +560,6 @@
   .hh-card-reporting .stats{display:flex;justify-content:space-between;align-items:baseline;font-size:10px}
   .hh-card-reporting .stats .n{font-family:var(--font-display);font-weight:700;font-size:18px;color:#fff;line-height:1}
   .hh-card-reporting .stats .u{font-size:9.5px;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase}
-
-  /* Card 2: Device types (mid-left) */
   .hh-card-anywhere{top:48%;left:-7%;width:210px;padding:14px 16px;transform:translate(-36px,8px) rotate(2deg) scale(.92);animation:hh-cardIn2 .8s .85s cubic-bezier(.2,.8,.2,1) forwards}
   @keyframes hh-cardIn2{to{opacity:1;transform:translate(0,0) rotate(2deg) scale(1)}}
   .hh-card-anywhere .ck-label{margin-bottom:10px}
@@ -490,8 +567,6 @@
   .hh-platforms{display:flex;gap:8px}
   .hh-plat{flex:1;padding:8px 4px;text-align:center;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);border-radius:8px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500;display:flex;flex-direction:column;align-items:center;gap:4px}
   .hh-plat svg{width:14px;height:14px;color:rgba(255,255,255,.75)}
-
-  /* Card 3: Australian owned (top-right) */
   .hh-card-au{top:5%;right:-3%;width:220px;padding:14px 16px;transform:translate(30px,-20px) rotate(2.5deg) scale(.92);animation:hh-cardIn3 .8s .7s cubic-bezier(.2,.8,.2,1) forwards;display:flex;align-items:center;gap:12px}
   @keyframes hh-cardIn3{to{opacity:1;transform:translate(0,0) rotate(2.5deg) scale(1)}}
   .hh-au-flag{width:42px;height:42px;border-radius:10px;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px;line-height:1}
@@ -499,23 +574,19 @@
   .hh-card-au .body .ck-label{margin-bottom:4px}
   .hh-card-au .title{font-family:var(--font-display);font-weight:700;font-size:14px;margin-top:4px}
   .hh-card-au .sub{font-size:10.5px;color:rgba(255,255,255,.6);margin-top:2px;font-family:monospace}
-
-  /* Card 4: Callflow builder (mid-right) */
   .hh-card-admin{top:46%;right:-6%;width:235px;padding:14px 16px;transform:translate(36px,8px) rotate(-2deg) scale(.92);animation:hh-cardIn4 .8s .95s cubic-bezier(.2,.8,.2,1) forwards}
   @keyframes hh-cardIn4{to{opacity:1;transform:translate(0,0) rotate(-2deg) scale(1)}}
   .hh-card-admin .ck-label{margin-bottom:10px}
   .hh-card-admin .title{font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:10px}
-  .hh-flow{display:flex;flex-direction:column;gap:5px}
-  .hh-flow-row{display:flex;align-items:center;gap:5px}
-  .hh-flow-node{padding:4px 8px;border-radius:6px;font-size:9.5px;font-weight:600;letter-spacing:.03em;white-space:nowrap}
-  .hh-flow-node.inbound{background:rgba(237,28,36,.25);border:1px solid rgba(237,28,36,.4);color:#ffb3b6}
-  .hh-flow-node.ivr{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff}
-  .hh-flow-node.route{background:rgba(38,217,122,.12);border:1px solid rgba(38,217,122,.25);color:#26d97a}
-  .hh-flow-node.queue{background:rgba(250,183,64,.12);border:1px solid rgba(250,183,64,.25);color:#fab340}
-  .hh-flow-arrow{color:rgba(255,255,255,.3);font-size:10px;flex-shrink:0}
-  .hh-card-admin .sub{font-size:10px;color:rgba(255,255,255,.5);margin-top:8px}
-
-  /* Card 5: Call queue / live (bottom-right) */
+  .hh-avatars{display:flex;align-items:center}
+  .hh-avatars .a{width:28px;height:28px;border-radius:50%;border:2px solid rgba(20,5,7,.9);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:10px;color:#fff}
+  .hh-avatars .a:first-child{margin-left:0}
+  .hh-avatars .a1{background:linear-gradient(135deg,#ED1C24,#A71C20)}
+  .hh-avatars .a2{background:linear-gradient(135deg,#4A4D55,#2A2A2E)}
+  .hh-avatars .a3{background:linear-gradient(135deg,#69e29a,#0E8A4A)}
+  .hh-avatars .a4{background:linear-gradient(135deg,#fff,#ffd2d4);color:#A71C20}
+  .hh-avatars .more{width:28px;height:28px;border-radius:50%;margin-left:-8px;background:rgba(255,255,255,.12);border:2px solid rgba(20,5,7,.9);font-family:monospace;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.85)}
+  .hh-card-admin .sub{font-size:10.5px;color:rgba(255,255,255,.6);margin-top:10px}
   .hh-card-live{bottom:8%;right:-10%;width:228px;padding:14px 16px;transform:translate(36px,20px) rotate(3deg) scale(.92);animation:hh-cardIn5 .8s 1.05s cubic-bezier(.2,.8,.2,1) forwards}
   @keyframes hh-cardIn5{to{opacity:1;transform:translate(0,0) rotate(3deg) scale(1)}}
   .hh-card-live .ck-label{margin-bottom:8px}
@@ -525,22 +596,14 @@
   .hh-card-live .big .n{font-size:38px;letter-spacing:-.02em;line-height:1;background:linear-gradient(180deg,#fff,#ffb3b6);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
   .hh-card-live .big .u{font-size:11px;color:rgba(255,255,255,.7);font-family:var(--font-ui);font-weight:500;letter-spacing:.02em}
   .hh-card-live .sub{font-size:10.5px;color:rgba(255,255,255,.55);margin-top:8px;line-height:1.45}
-
-  /* Card 6: Number types (bottom-left) */
-  .hh-card-hidden{bottom:8%;left:-4%;width:240px;padding:12px 14px;transform:translate(-30px,18px) rotate(-2deg) scale(.92);animation:hh-cardIn6 .8s 1.15s cubic-bezier(.2,.8,.2,1) forwards}
+  .hh-card-hidden{bottom:8%;left:-4%;width:240px;padding:12px 14px;transform:translate(-30px,18px) rotate(-2deg) scale(.92);animation:hh-cardIn6 .8s 1.15s cubic-bezier(.2,.8,.2,1) forwards;display:flex;align-items:center;gap:10px}
   @keyframes hh-cardIn6{to{opacity:1;transform:translate(0,0) rotate(-2deg) scale(1)}}
-  .hh-card-hidden .ck-label{margin-bottom:8px}
-  .hh-numtypes{display:flex;flex-direction:column;gap:5px}
-  .hh-numtype{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;border-radius:7px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08)}
-  .hh-numtype .badge{font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:4px}
-  .hh-numtype .badge.local{background:rgba(237,28,36,.25);color:#ffb3b6}
-  .hh-numtype .badge.t1300{background:rgba(38,217,122,.15);color:#26d97a}
-  .hh-numtype .badge.t1800{background:rgba(250,183,64,.15);color:#fab340}
-  .hh-numtype .num{font-family:monospace;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.04em}
-
+  .hh-card-hidden .tick{width:32px;height:32px;border-radius:8px;flex-shrink:0;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff}
+  .hh-card-hidden .body .ck-label{margin-bottom:2px}
+  .hh-card-hidden .sub{font-size:11px;color:rgba(255,255,255,.85);font-weight:500;line-height:1.3}
   @media(prefers-reduced-motion:reduce){
     .home-hero *{animation-duration:.01ms!important;animation-iteration-count:1!important}
-    .hh-card{opacity:1!important;transform:none!important}
+    .hh-bubble,.hh-card{opacity:1!important;transform:none!important}
   }
   @media(max-width:1200px){
     .home-hero h1{font-size:54px}
@@ -553,6 +616,122 @@
     .hh-composition{display:none}
     .hh-wrap{padding:0 20px}
   }
+
+  /* ── Jet Phone app UI – hero laptop screen ─────────────────── */
+  .jp-topbar{
+    display:flex;align-items:center;gap:7px;padding:8px 10px;
+    border-bottom:1px solid #E1E4E8;background:rgba(255,255,255,.95);flex-shrink:0;
+  }
+  .jp-compose-btn{
+    width:26px;height:26px;border-radius:6px;background:#ED1C24;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .jp-compose-btn svg{width:12px;height:12px;color:#fff}
+  .jp-topbar-label{
+    color:#ED1C24;font-family:var(--font-display);font-weight:600;font-size:10.5px;
+    display:flex;align-items:center;gap:4px;
+  }
+  .jp-topbar-label svg{width:10px;height:10px}
+  .jp-body{flex:1;display:flex;overflow:hidden;min-height:0}
+  .jp-sidebar{
+    width:52px;background:#fff;border-right:1px solid #E1E4E8;
+    display:flex;flex-direction:column;align-items:center;
+    padding:6px 0 8px;gap:1px;flex-shrink:0;
+  }
+  .jp-nav-item{
+    width:42px;border-radius:8px;
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:center;padding:5px 2px 4px;gap:1px;
+  }
+  .jp-nav-item svg{width:15px;height:15px;color:#6B6E76;flex-shrink:0}
+  .jp-nav-lbl{
+    font-size:6.5px;font-weight:600;font-family:var(--font-ui);
+    color:#6B6E76;letter-spacing:.02em;line-height:1;
+  }
+  .jp-nav-item.jp-active{background:#ED1C24}
+  .jp-nav-item.jp-active svg,.jp-nav-item.jp-active .jp-nav-lbl{color:#fff}
+  .jp-sb-bottom{
+    margin-top:auto;display:flex;flex-direction:column;
+    align-items:center;gap:6px;padding-bottom:2px;
+  }
+  .jp-sb-ic{width:15px;height:15px;color:#9A9DA4;flex-shrink:0}
+  .jp-user-av{
+    width:26px;height:26px;border-radius:50%;background:#9896B5;
+    display:flex;align-items:center;justify-content:center;
+    font-size:8px;font-weight:700;color:#fff;position:relative;
+  }
+  .jp-user-av .jp-dot{
+    position:absolute;bottom:0;right:0;
+    width:6px;height:6px;background:#26d97a;
+    border-radius:50%;border:1.5px solid #fff;
+  }
+  .jp-calls-panel{
+    flex:1;overflow:hidden;display:flex;flex-direction:column;background:#F7F8FA;
+  }
+  .jp-calls-hd{
+    padding:8px 10px 4px;font-family:var(--font-display);font-weight:700;
+    font-size:8px;letter-spacing:.12em;color:#6B6E76;text-transform:uppercase;flex-shrink:0;
+  }
+  .jp-ci{
+    display:flex;align-items:center;gap:7px;
+    padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.05);
+    flex-shrink:0;opacity:0;transform:translateX(10px);
+  }
+  .jp-ci.sel{background:#EAE8F5}
+  .jp-ci-av{
+    width:30px;height:30px;border-radius:50%;background:#C4C2D8;
+    display:flex;align-items:center;justify-content:center;
+    font-size:9px;font-weight:700;color:#fff;flex-shrink:0;
+  }
+  .jp-ci-av.av1{background:#7C6FBF}
+  .jp-ci-av.av2{background:#9B8FCE}
+  .jp-ci-inf{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .jp-ci-nm{
+    font-family:var(--font-display);font-weight:600;font-size:10px;
+    color:#0B0B0C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .jp-ci-tp{display:flex;align-items:center;gap:3px;font-size:8.5px;color:#6B6E76}
+  .jp-ci-tp svg{width:9px;height:9px;flex-shrink:0}
+  .jp-ci-tp.out svg,.jp-ci-tp.inc svg{color:#26C06A}
+  .jp-ci-tp.rej svg,.jp-ci-tp.mis svg{color:#E87070}
+  .jp-ci-time{font-size:8px;color:#9A9DA4;font-family:monospace;white-space:nowrap;flex-shrink:0}
+  .jp-ci.i1{animation:jpCiIn .45s .7s  cubic-bezier(.2,.8,.2,1) forwards}
+  .jp-ci.i2{animation:jpCiIn .45s .85s cubic-bezier(.2,.8,.2,1) forwards}
+  .jp-ci.i3{animation:jpCiIn .45s 1.0s cubic-bezier(.2,.8,.2,1) forwards}
+  .jp-ci.i4{animation:jpCiIn .45s 1.15s cubic-bezier(.2,.8,.2,1) forwards}
+  .jp-ci.i5{animation:jpCiIn .45s 1.3s cubic-bezier(.2,.8,.2,1) forwards}
+  .jp-ci.i6{animation:jpCiIn .45s 1.45s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes jpCiIn{to{opacity:1;transform:translateX(0)}}
+
+  /* detail panel */
+  .jp-detail-panel{
+    width:200px;background:#E8E8EB;border-left:1px solid #D8D8DC;
+    display:flex;flex-direction:column;flex-shrink:0;
+  }
+  .jp-detail-head{
+    display:flex;align-items:center;gap:7px;
+    padding:8px 10px;background:rgba(255,255,255,.5);
+    border-bottom:1px solid #D8D8DC;flex-shrink:0;
+  }
+  .jp-detail-info{flex:1;min-width:0}
+  .jp-detail-nm{font-family:var(--font-display);font-weight:600;font-size:10px;color:#0B0B0C}
+  .jp-detail-sub{font-size:8px;color:#6B6E76;font-family:monospace}
+  .jp-detail-actions{display:flex;gap:8px;flex-shrink:0}
+  .jp-detail-actions svg{width:13px;height:13px;color:#6B6E76}
+  .jp-detail-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:12px 10px;gap:8px}
+  .jp-detail-date{font-size:8.5px;color:#6B6E76;font-weight:500;letter-spacing:.03em}
+  .jp-call-bbl{
+    align-self:flex-end;background:#fff;border-radius:10px 10px 3px 10px;
+    padding:7px 10px;font-size:9.5px;font-weight:500;color:#0B0B0C;
+    display:flex;align-items:center;gap:5px;
+    box-shadow:0 1px 3px rgba(0,0,0,.08);width:88%;
+    opacity:0;transform:translateY(6px);
+  }
+  .jp-call-bbl svg{width:11px;height:11px;color:#26C06A;flex-shrink:0}
+  .jp-bbl-meta{font-size:8px;color:#9A9DA4;margin-left:auto}
+  .jp-call-bbl.bb1{animation:jpBblIn .45s 1.5s cubic-bezier(.2,.8,.2,1) forwards}
+  .jp-call-bbl.bb2{animation:jpBblIn .45s 1.75s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes jpBblIn{to{opacity:1;transform:translateY(0)}}
   </style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -712,83 +891,215 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <!-- RIGHT — composition -->
-      <div class="hh-composition" aria-label="Jet Business Phone desk phone interface showing an active call, with callflow builder, call analytics, geographic routing and number type highlights">
+      <div class="hh-composition" aria-label="Jet Phone desktop app showing call history with outgoing, incoming, and missed calls, alongside a mobile incoming call screen with CRM data">
 
-        <!-- DESK PHONE MOCKUP -->
+        <!-- LAPTOP -->
+        <div class="hh-laptop">
+          <div class="hh-lid">
+            <div class="hh-lid-cam"></div>
+            <div class="hh-lid-screen">
+              <div class="hh-win-chrome">
+                <span class="hh-wc-dot r"></span>
+                <span class="hh-wc-dot y"></span>
+                <span class="hh-wc-dot g"></span>
+                <div class="hh-wc-title">Jet Phone</div>
+              </div>
+            <div class="jp-topbar">
+              <div class="jp-compose-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <div class="jp-topbar-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Start Message
+              </div>
+            </div>
+            <div class="jp-body">
+              <!-- Sidebar nav -->
+              <div class="jp-sidebar">
+                <div class="jp-nav-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 01-.45 2.11L8.09 10.91a16 16 0 006 6l2.02-1.27a2 2 0 012.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0122 16.92z"/></svg>
+                  <span class="jp-nav-lbl">Keypad</span>
+                </div>
+                <div class="jp-nav-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <span class="jp-nav-lbl">Contacts</span>
+                </div>
+                <div class="jp-nav-item jp-active">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span class="jp-nav-lbl">History</span>
+                </div>
+                <div class="jp-nav-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  <span class="jp-nav-lbl">Messages</span>
+                </div>
+                <div class="jp-nav-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                  <span class="jp-nav-lbl">Jet</span>
+                </div>
+                <div class="jp-sb-bottom">
+                  <svg class="jp-sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                  <svg class="jp-sb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                  <div class="jp-user-av">MA<span class="jp-dot"></span></div>
+                </div>
+              </div>
+              <!-- Call list -->
+              <div class="jp-calls-panel">
+                <div class="jp-calls-hd">Calls</div>
+                <div class="jp-ci sel i1">
+                  <div class="jp-ci-av"></div>
+                  <div class="jp-ci-inf">
+                    <div class="jp-ci-nm">0491 570 006</div>
+                    <div class="jp-ci-tp out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>Outgoing Call</div>
+                  </div>
+                  <div class="jp-ci-time">12:58 PM</div>
+                </div>
+                <div class="jp-ci i2">
+                  <div class="jp-ci-av av1">SM</div>
+                  <div class="jp-ci-inf">
+                    <div class="jp-ci-nm">Sarah Mitchell</div>
+                    <div class="jp-ci-tp out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>Outgoing Call</div>
+                  </div>
+                  <div class="jp-ci-time">12:58 PM</div>
+                </div>
+                <div class="jp-ci i3">
+                  <div class="jp-ci-av"></div>
+                  <div class="jp-ci-inf">
+                    <div class="jp-ci-nm">0491 570 040</div>
+                    <div class="jp-ci-tp inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 7 7 17"/><polyline points="17 17 7 17 7 7"/></svg>Incoming Call</div>
+                  </div>
+                  <div class="jp-ci-time">22/5/26</div>
+                </div>
+                <div class="jp-ci i4">
+                  <div class="jp-ci-av"></div>
+                  <div class="jp-ci-inf">
+                    <div class="jp-ci-nm">0491 570 091</div>
+                    <div class="jp-ci-tp rej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Rejected</div>
+                  </div>
+                  <div class="jp-ci-time">21/5/26</div>
+                </div>
+                <div class="jp-ci i5">
+                  <div class="jp-ci-av av2">DN</div>
+                  <div class="jp-ci-inf">
+                    <div class="jp-ci-nm">David Nguyen</div>
+                    <div class="jp-ci-tp mis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Missed</div>
+                  </div>
+                  <div class="jp-ci-time">20/5/26</div>
+                </div>
+                <div class="jp-ci i6">
+                  <div class="jp-ci-av"></div>
+                  <div class="jp-ci-inf">
+                    <div class="jp-ci-nm">0491 570 156</div>
+                    <div class="jp-ci-tp mis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Missed</div>
+                  </div>
+                  <div class="jp-ci-time">19/5/26</div>
+                </div>
+              </div>
+              <!-- Call detail panel -->
+              <div class="jp-detail-panel">
+                <div class="jp-detail-head">
+                  <div class="jp-ci-av"></div>
+                  <div class="jp-detail-info">
+                    <div class="jp-detail-nm">0491 570 006</div>
+                    <div class="jp-detail-sub">0491 570 006</div>
+                  </div>
+                  <div class="jp-detail-actions">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 01-.45 2.11L8.09 10.91a16 16 0 006 6l2.02-1.27a2 2 0 012.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0122 16.92z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                  </div>
+                </div>
+                <div class="jp-detail-body">
+                  <div class="jp-detail-date">Today</div>
+                  <div class="jp-call-bbl bb1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    Outgoing call (00:01)
+                    <div class="jp-bbl-meta">12:58 PM</div>
+                  </div>
+                  <div class="jp-call-bbl bb2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    Outgoing call (00:01)
+                    <div class="jp-bbl-meta">12:58 PM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hh-base"></div>
+        </div>
+
+        <!-- MOBILE PHONE -->
         <div class="hh-phone">
           <div class="hh-screen">
 
-            <!-- Status bar -->
-            <div class="hh-dp-statusbar">
-              <span class="brand">Jet Hub</span>
-              <span class="time">9:41</span>
+            <div class="hh-notch"></div>
+            <div class="hh-ic-status">
+              <span>9:41</span>
+              <span class="r">
+                <svg width="15" height="11" viewBox="0 0 14 10" fill="currentColor"><rect x="0" y="6" width="2" height="4" rx=".5"/><rect x="4" y="4" width="2" height="6" rx=".5"/><rect x="8" y="2" width="2" height="8" rx=".5"/><rect x="12" y="0" width="2" height="10" rx=".5"/></svg>
+                <svg width="22" height="11" viewBox="0 0 20 10" fill="none" stroke="currentColor" stroke-width="1"><rect x=".5" y=".5" width="16" height="9" rx="2"/><rect x="2" y="2" width="11" height="6" rx="1" fill="currentColor"/><rect x="17" y="3" width="2" height="4" rx=".5" fill="currentColor"/></svg>
+              </span>
             </div>
-
-            <!-- Line indicators -->
-            <div class="hh-dp-lines">
-              <div class="hh-dp-line active"><span class="dot"></span>Line 1 · Active</div>
-              <div class="hh-dp-line idle"><span class="dot"></span>Line 2 · Idle</div>
-              <div class="hh-dp-line idle"><span class="dot"></span>Line 3 · Idle</div>
-            </div>
-
-            <!-- Active call display -->
-            <div class="hh-dp-call">
-              <div class="hh-dp-call-badge"><span class="dot"></span>In Call</div>
-              <div class="hh-dp-call-via">Via your 1300 number</div>
-              <div class="hh-dp-call-num">1300 555 123</div>
-              <div class="hh-dp-call-contact">Sarah Mitchell</div>
-              <div class="hh-dp-call-sub">0412 345 678 · Inbound</div>
-              <div class="hh-dp-timer" id="callTimer">02:34</div>
-            </div>
-
-            <!-- Call controls -->
-            <div class="hh-dp-controls">
-              <div class="hh-dp-ctrl">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                <span>Mute</span>
+            <div class="hh-ic-topbar">
+              <div class="hh-ic-logo-sq">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               </div>
-              <div class="hh-dp-ctrl">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                <span>Hold</span>
+              <div class="hh-ic-appname">Jet Mobile</div>
+              <div class="hh-ic-biz">Business</div>
+            </div>
+            <div class="hh-ic-incoming">Incoming · Vendor Enquiry</div>
+            <div class="hh-ic-avatar-wrap">
+              <div class="hh-ic-avatar">MC</div>
+            </div>
+            <div class="hh-ic-name">Marcus Chen</div>
+            <div class="hh-ic-num">+61 491 570 156</div>
+            <div class="hh-ic-card">
+              <div class="hh-ic-match">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Matched · Salesforce</span>
               </div>
-              <div class="hh-dp-ctrl">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                <span>Transfer</span>
+              <div class="hh-ic-card-div"></div>
+              <div class="hh-ic-crm-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="hh-ic-crm-lbl">Last viewed</span>
+                <span class="hh-ic-crm-val">42 Beach Rd, Bondi</span>
               </div>
-              <div class="hh-dp-ctrl active-ctrl">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Record</span>
+              <div class="hh-ic-crm-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span class="hh-ic-crm-lbl">Inspection</span>
+                <span class="hh-ic-crm-val">Sat 11:00 am</span>
+              </div>
+              <div class="hh-ic-crm-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span class="hh-ic-crm-lbl">Pre-approval</span>
+                <span class="hh-ic-crm-val green">$1.4M · cash</span>
               </div>
             </div>
-
-            <!-- Keypad -->
-            <div class="hh-dp-keypad">
-              <div class="hh-dp-key">1<span class="sub"></span></div>
-              <div class="hh-dp-key">2<span class="sub">ABC</span></div>
-              <div class="hh-dp-key">3<span class="sub">DEF</span></div>
-              <div class="hh-dp-key nav">▲</div>
-              <div class="hh-dp-key">4<span class="sub">GHI</span></div>
-              <div class="hh-dp-key">5<span class="sub">JKL</span></div>
-              <div class="hh-dp-key">6<span class="sub">MNO</span></div>
-              <div class="hh-dp-key nav">OK</div>
-              <div class="hh-dp-key">7<span class="sub">PQRS</span></div>
-              <div class="hh-dp-key">8<span class="sub">TUV</span></div>
-              <div class="hh-dp-key">9<span class="sub">WXYZ</span></div>
-              <div class="hh-dp-key nav">▼</div>
-              <div class="hh-dp-key">*</div>
-              <div class="hh-dp-key">0<span class="sub">+</span></div>
-              <div class="hh-dp-key">#</div>
-              <div class="hh-dp-key fn">END</div>
+            <div class="hh-ic-btns">
+              <div class="hh-ic-btn">
+                <div class="hh-ic-btn-c decline">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(135deg)"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 01-.45 2.11L8.09 10.91a16 16 0 006 6l2.02-1.27a2 2 0 012.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0122 16.92z"/></svg>
+                </div>
+                <div class="hh-ic-btn-lbl">Decline</div>
+              </div>
+              <div class="hh-ic-btn">
+                <div class="hh-ic-btn-c fwd">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 014-4h12"/></svg>
+                </div>
+                <div class="hh-ic-btn-lbl">Forward</div>
+              </div>
+              <div class="hh-ic-btn">
+                <div class="hh-ic-btn-c answer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 01-.45 2.11L8.09 10.91a16 16 0 006 6l2.02-1.27a2 2 0 012.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0122 16.92z"/></svg>
+                </div>
+                <div class="hh-ic-btn-lbl">Answer</div>
+              </div>
             </div>
-
           </div>
         </div>
 
-        <!-- SATELLITE CARDS -->
-
-        <!-- Reporting (top-left) -->
+        <!-- SATELLITE CARDS (hidden) -->
         <div class="hh-card hh-card-reporting">
-          <div class="ck-label"><span class="lr"></span>Call analytics</div>
+          <div class="ck-label"><span class="lr"></span>Live reporting</div>
           <div class="title">Every call, tracked</div>
           <div class="hh-mini-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
           <div class="stats">
@@ -796,29 +1107,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span><span class="n">94%</span><br/><span class="u">Answered</span></span>
           </div>
         </div>
-
-        <!-- Device types (mid-left) -->
-        <div class="hh-card hh-card-anywhere">
-          <div class="ck-label">Use on any device</div>
-          <div class="title">Desk · Desktop · Mobile</div>
-          <div class="hh-platforms">
-            <div class="hh-plat">
-              <!-- Desk phone icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/><path d="M7 9h.01M7 12h.01"/></svg>
-              Desk
-            </div>
-            <div class="hh-plat">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              Desktop
-            </div>
-            <div class="hh-plat">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-              Mobile
-            </div>
-          </div>
-        </div>
-
-        <!-- Australian owned (top-right) -->
         <div class="hh-card hh-card-au">
           <div class="hh-au-flag">🇦🇺</div>
           <div class="body">
@@ -827,28 +1115,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="sub">1300 10 13 10</div>
           </div>
         </div>
-
-        <!-- Callflow builder (mid-right) -->
         <div class="hh-card hh-card-admin">
-          <div class="ck-label">Callflow builder</div>
-          <div class="title">Visual drag &amp; drop</div>
-          <div class="hh-flow">
-            <div class="hh-flow-row">
-              <div class="hh-flow-node inbound">Inbound 1300</div>
-              <span class="hh-flow-arrow">→</span>
-              <div class="hh-flow-node ivr">IVR Menu</div>
-            </div>
-            <div class="hh-flow-row" style="padding-left:16px">
-              <span class="hh-flow-arrow">↳</span>
-              <div class="hh-flow-node route">Geo Route</div>
-              <span class="hh-flow-arrow">→</span>
-              <div class="hh-flow-node queue">Queue</div>
-            </div>
+          <div class="ck-label">Central admin</div>
+          <div class="title">Manage every line</div>
+          <div class="hh-avatars">
+            <div class="a a1">PN</div>
+            <div class="a a2">DK</div>
+            <div class="a a3">JO</div>
+            <div class="a a4">SM</div>
+            <div class="more">+14</div>
           </div>
-          <div class="sub">Change your callflow in minutes — no IT needed</div>
+          <div class="sub">Routing · users · billing — one portal</div>
         </div>
-
-        <!-- Live calls (bottom-right) -->
         <div class="hh-card hh-card-live">
           <div class="ck-label"><span class="lr"></span>Live now</div>
           <div class="big">
@@ -857,23 +1135,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="sub">Across 14 team members nationwide</div>
         </div>
-
-        <!-- Number types (bottom-left) -->
         <div class="hh-card hh-card-hidden">
-          <div class="ck-label">Your number types</div>
-          <div class="hh-numtypes">
-            <div class="hh-numtype">
-              <span class="badge local">Local</span>
-              <span class="num">02 9555 0100</span>
-            </div>
-            <div class="hh-numtype">
-              <span class="badge t1300">1300</span>
-              <span class="num">1300 555 123</span>
-            </div>
-            <div class="hh-numtype">
-              <span class="badge t1800">1800</span>
-              <span class="num">1800 555 456</span>
-            </div>
+          <div class="tick">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="body">
+            <div class="ck-label">Personal hidden</div>
+            <div class="sub">Clients see business only</div>
           </div>
         </div>
 
