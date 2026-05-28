@@ -129,7 +129,8 @@
     .nav__dropdown-menu a:last-child { border-bottom: none; }
     .nav__dropdown-menu a:hover { background: var(--ink-50); color: var(--red); }
     .nav__dropdown-menu a svg { flex-shrink: 0; color: var(--red); }
-    .nav__dropdown-menu--wide { min-width: 480px; display: grid; grid-template-columns: 1fr 1fr; }
+    .nav__dropdown-menu--wide { min-width: 480px; grid-template-columns: 1fr 1fr; }
+    .nav__dropdown:hover .nav__dropdown-menu--wide { display: grid; }
     .nav__dropdown-menu--wide a { border-bottom: var(--border); }
     .nav__dropdown-menu--wide a:nth-last-child(-n+2) { border-bottom: none; }
     .nav__dropdown-menu--wide .nav__dm-all { grid-column: 1 / -1; border-bottom: none; background: var(--ink-50); font-size: var(--fs-small); color: var(--red); font-weight: 600; }
